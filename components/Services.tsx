@@ -8,160 +8,98 @@ const services = [
   {
     icon: Globe,
     title: 'Webdesign & Entwicklung',
-    description:
-      'Wir entwickeln moderne, schnelle und responsiv gestaltete Websites und Web-Apps, die Ihre Marke überzeugend präsentieren und Besucher in Kunden verwandeln.',
-    features: ['Next.js & React', 'Mobile-first Design', 'SEO-Optimierung', 'Performance 90+'],
+    description: 'Schnelle, moderne Websites, die Vertrauen schaffen und Besucher in Kunden verwandeln.',
+    features: ['Next.js & React', 'Mobile-first', 'SEO-ready', 'Performance 90+'],
   },
   {
     icon: TrendingUp,
     title: 'Digital Marketing',
-    description:
-      'Von SEO über Social-Media-Management bis hin zu bezahlten Kampagnen — wir bringen Ihre Marke dorthin, wo Ihre Zielgruppe ist, und sorgen für messbares Wachstum.',
-    features: ['SEO & Content Marketing', 'Google & Meta Ads', 'Social Media Management', 'Analytics & Reporting'],
+    description: 'SEO, Google Ads und Social Media — gezielt eingesetzt für messbar mehr Anfragen.',
+    features: ['SEO & Content', 'Google & Meta Ads', 'Social Media', 'Reporting'],
     featured: true,
   },
   {
     icon: Lightbulb,
     title: 'Strategy & Consulting',
-    description:
-      'Digitale Transformation beginnt mit einer klaren Strategie. Wir analysieren Ihre Situation, entwickeln einen maßgeschneiderten Plan und begleiten Sie Schritt für Schritt.',
-    features: ['Digitale Strategie', 'UX-Beratung & Audit', 'Wettbewerbsanalyse', 'Roadmap-Planung'],
+    description: 'Klare digitale Strategie mit konkretem Aktionsplan — individuell für Ihr Unternehmen.',
+    features: ['Digitale Strategie', 'UX-Audit', 'Wettbewerbsanalyse', 'Roadmap'],
   },
 ]
 
-function ServiceCard({
-  service,
-  index,
-  inView,
-}: {
-  service: (typeof services)[0]
-  index: number
-  inView: boolean
-}) {
-  const Icon = service.icon
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: 0.1 + index * 0.15, ease: 'easeOut' }}
-      className={`group relative flex flex-col rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1 ${
-        service.featured
-          ? 'bg-blue-600 border-blue-600 text-white shadow-2xl shadow-blue-600/20'
-          : 'bg-white border-slate-100 hover:border-blue-100 hover:shadow-xl'
-      }`}
-    >
-      {service.featured && (
-        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
-          Beliebt
-        </span>
-      )}
-
-      {/* Icon */}
-      <div
-        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300 ${
-          service.featured
-            ? 'bg-white/20'
-            : 'bg-blue-50 group-hover:bg-blue-600'
-        }`}
-      >
-        <Icon
-          size={24}
-          strokeWidth={1.8}
-          className={`transition-colors duration-300 ${
-            service.featured
-              ? 'text-white'
-              : 'text-blue-600 group-hover:text-white'
-          }`}
-          aria-hidden="true"
-        />
-      </div>
-
-      <h3
-        className={`text-xl font-bold mb-3 ${
-          service.featured ? 'text-white' : 'text-slate-900'
-        }`}
-      >
-        {service.title}
-      </h3>
-      <p
-        className={`leading-relaxed mb-6 flex-1 ${
-          service.featured ? 'text-blue-100' : 'text-slate-500'
-        }`}
-      >
-        {service.description}
-      </p>
-
-      <ul className="space-y-2.5 mb-8">
-        {service.features.map((f) => (
-          <li key={f} className="flex items-center gap-2.5 text-sm">
-            <CheckCircle2
-              size={16}
-              className={service.featured ? 'text-blue-200' : 'text-blue-600'}
-              aria-hidden="true"
-            />
-            <span className={service.featured ? 'text-blue-50' : 'text-slate-600'}>{f}</span>
-          </li>
-        ))}
-      </ul>
-
-      <a
-        href="#kontakt"
-        className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group/link ${
-          service.featured
-            ? 'text-white hover:gap-3'
-            : 'text-blue-600 hover:gap-3'
-        }`}
-        aria-label={`Mehr über ${service.title} erfahren`}
-      >
-        Mehr erfahren
-        <ArrowRight size={16} aria-hidden="true" />
-      </a>
-    </motion.article>
-  )
-}
-
 export default function Services() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section id="leistungen" className="py-24 lg:py-32 bg-slate-50 px-4 sm:px-6 lg:px-8">
+    <section id="leistungen" className="py-16 sm:py-24 bg-slate-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Section header */}
-        <div className="text-center mb-16" ref={ref}>
+        <div className="text-center mb-12" ref={ref}>
           <motion.span
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-blue-600 font-semibold text-sm uppercase tracking-widest"
+            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
+            className="text-amber-600 font-semibold text-xs uppercase tracking-widest"
           >
-            Unsere Leistungen
+            Leistungen
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-3 mb-4"
+            initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
           >
             Alles aus einer Hand
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="max-w-2xl mx-auto text-lg text-slate-500 leading-relaxed"
+            initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.18 }}
+            className="max-w-lg mx-auto text-base sm:text-lg text-slate-500"
           >
-            Wir bieten alles, was Ihr Unternehmen im digitalen Raum braucht —
-            von der Webseite bis zur Performance-Kampagne.
+            Von der Website bis zur Kampagne — wir liefern was zählt.
           </motion.p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} inView={inView} />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-7">
+          {services.map((s, i) => {
+            const Icon = s.icon
+            return (
+              <motion.article
+                key={s.title}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.13 }}
+                className={`relative group flex flex-col rounded-2xl p-7 border transition-all duration-300 hover:-translate-y-1 ${
+                  s.featured
+                    ? 'bg-slate-900 border-slate-900 shadow-2xl shadow-slate-900/20'
+                    : 'bg-white border-slate-100 hover:shadow-xl hover:border-amber-100'
+                }`}
+              >
+                {s.featured && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
+                    Beliebt
+                  </span>
+                )}
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-colors ${
+                  s.featured ? 'bg-white/15' : 'bg-amber-50 group-hover:bg-amber-500'
+                }`}>
+                  <Icon size={22} strokeWidth={1.8} className={s.featured ? 'text-white' : 'text-amber-600 group-hover:text-white'} aria-hidden="true" />
+                </div>
+                <h3 className={`text-lg font-bold mb-2 ${s.featured ? 'text-white' : 'text-slate-900'}`}>{s.title}</h3>
+                <p className={`text-sm leading-relaxed mb-5 flex-1 ${s.featured ? 'text-slate-300' : 'text-slate-500'}`}>{s.description}</p>
+                <ul className="space-y-2 mb-6">
+                  {s.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 size={14} className={s.featured ? 'text-amber-400' : 'text-amber-500'} aria-hidden="true" />
+                      <span className={s.featured ? 'text-slate-200' : 'text-slate-600'}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#kontakt"
+                  className={`inline-flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-2.5 ${s.featured ? 'text-amber-400' : 'text-amber-600'}`}
+                >
+                  Mehr erfahren <ArrowRight size={15} aria-hidden="true" />
+                </a>
+              </motion.article>
+            )
+          })}
         </div>
       </div>
     </section>

@@ -2,60 +2,40 @@ import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const font = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-sans',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Prince Digital — Webdesign & Digital Marketing Agentur',
+  title: 'Prince Digitals — Webdesign & Digital Marketing Zürich',
   description:
-    'Prince Digital ist Ihre Digitalagentur für professionelles Webdesign, Webentwicklung und Digital Marketing. Wir helfen KMUs und Unternehmen, online zu wachsen.',
-  keywords: [
-    'Webdesign',
-    'Webentwicklung',
-    'Digital Marketing',
-    'SEO',
-    'Google Ads',
-    'Social Media',
-    'Agentur',
-    'Prince Digital',
-  ],
-  authors: [{ name: 'Prince Digital' }],
-  creator: 'Prince Digital',
-  metadataBase: new URL('https://princedigital.de'),
+    'Prince Digitals Alizadeh aus Hombrechtikon, Zürich. Professionelles Webdesign, SEO und Online-Marketing für KMUs in der Schweiz.',
+  keywords: ['Webdesign Zürich', 'Digital Marketing Schweiz', 'SEO', 'Google Ads', 'Prince Digitals'],
+  authors: [{ name: 'Prince Digitals Alizadeh' }],
+  metadataBase: new URL('https://prince-digitals.ch'),
   openGraph: {
     type: 'website',
-    locale: 'de_DE',
-    url: 'https://princedigital.de',
-    title: 'Prince Digital — Webdesign & Digital Marketing Agentur',
-    description:
-      'Professionelle Webseiten & digitale Strategien für Ihr Unternehmenswachstum.',
-    siteName: 'Prince Digital',
+    locale: 'de_CH',
+    url: 'https://prince-digitals.ch',
+    title: 'Prince Digitals — Webdesign & Digital Marketing Zürich',
+    description: 'Webdesign, SEO & Online-Marketing für KMUs — aus Zürich, für die Schweiz.',
+    siteName: 'Prince Digitals',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prince Digital — Webdesign & Digital Marketing Agentur',
-    description:
-      'Professionelle Webseiten & digitale Strategien für Ihr Unternehmenswachstum.',
+    title: 'Prince Digitals — Webdesign & Digital Marketing Zürich',
+    description: 'Webdesign, SEO & Online-Marketing für KMUs — aus Zürich, für die Schweiz.',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+  robots: { index: true, follow: true },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${plusJakartaSans.variable} scroll-smooth`}>
-      <body className={`${plusJakartaSans.className} bg-white`}>{children}</body>
+    <html lang="de" className={font.variable}>
+      <body className={`${font.className} bg-white antialiased`}>{children}</body>
     </html>
   )
 }
