@@ -5,20 +5,14 @@ import Image from 'next/image'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-const navLinks = [
-  { name: 'Leistungen', href: '#leistungen' },
-  { name: 'Über uns', href: '#ueber-uns' },
-  { name: 'Portfolio', href: '#portfolio' },
-  { name: 'Kontakt', href: '#kontakt' },
-]
+import { useLang, useT } from '@/lib/i18n'
 
 const EXPAND_THRESHOLD = 80
 
 const pillVariants = {
   expanded: {
     width: 'auto',
-    transition: { type: 'spring' as const, damping: 22, stiffness: 280, staggerChildren: 0.06, delayChildren: 0.08 },
+    transition: { type: 'spring' as const, damping: 22, stiffness: 280, staggerChildren: 0.05, delayChildren: 0.06 },
   },
   collapsed: {
     width: '3rem',
@@ -47,6 +41,16 @@ export default function Navbar() {
   const { scrollY } = useScroll()
   const lastY = useRef(0)
   const collapseY = useRef(0)
+  const { lang, setLang } = useLang()
+  const t = useT()
+
+  const navLinks = [
+    { name: t.nav.services,  href: '#leistungen' },
+    { name: t.nav.about,     href: '#ueber-uns'  },
+    { name: t.nav.portfolio, href: '#portfolio'  },
+    { name: t.nav.faq,       href: '#faq'        },
+    { name: t.nav.contact,   href: '#kontakt'    },
+  ]
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const prev = lastY.current
@@ -65,7 +69,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Floating pill nav ───────────────────────────── */}
+      {/* ── Floating glass pill — desktop ───────────────── */}
       <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
@@ -76,17 +80,21 @@ export default function Navbar() {
           onClick={handlePillClick}
           aria-label="Hauptnavigation"
           className={cn(
-            'relative flex items-center overflow-hidden rounded-full h-12 shadow-xl shadow-black/15',
+            'relative flex items-center overflow-hidden rounded-full h-12',
+            'shadow-2xl shadow-black/60',
             isExpanded
-              ? 'bg-white/95 backdrop-blur-md border border-white/60'
-              : 'bg-slate-900 cursor-pointer justify-center',
+              ? 'bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12]'
+              : 'bg-white/[0.08] backdrop-blur-2xl border border-white/[0.12] cursor-pointer justify-center',
           )}
         >
           {/* Logo */}
           <motion.div variants={logoVariants} className="flex items-center gap-2 pl-3 pr-1 flex-shrink-0">
-            <Image src="/logo.png" alt="Prince Digitals" width={32} height={32} className="h-8 w-8 object-contain" priority />
-            <span className="font-bold text-[15px] text-slate-900 whitespace-nowrap leading-none">
-              Prince <span className="text-amber-600">Digitals</span>
+            <Image src="/logo.png" alt="Prince Digital" width={28} height={28} className="h-7 w-7 object-contain" priority />
+            <span className="font-bold text-[14px] text-white whitespace-nowrap leading-none">
+              Prince{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+                Digital
+              </span>
             </span>
           </motion.div>
 
@@ -98,25 +106,34 @@ export default function Navbar() {
                 href={l.href}
                 variants={itemVariants}
                 onClick={(e) => e.stopPropagation()}
-                className="text-sm font-medium text-slate-600 hover:text-amber-600 transition-colors px-3 py-2 whitespace-nowrap"
+                className="text-[13px] font-medium text-white/65 hover:text-white transition-colors px-3 py-2 whitespace-nowrap rounded-full hover:bg-white/[0.06]"
               >
                 {l.name}
               </motion.a>
             ))}
           </div>
 
-          {/* CTA */}
-          <motion.div variants={itemVariants} className={cn('pr-2 flex-shrink-0', !isExpanded && 'pointer-events-none')}>
+          {/* Language switcher + CTA */}
+          <motion.div
+            variants={itemVariants}
+            className={cn('pr-2 flex items-center gap-2 flex-shrink-0', !isExpanded && 'pointer-events-none')}
+          >
+            <button
+              onClick={(e) => { e.stopPropagation(); setLang(lang === 'de' ? 'en' : 'de') }}
+              className="text-[11px] font-bold text-white/45 hover:text-white/80 transition-colors px-2 py-1 rounded-full border border-white/[0.10] hover:border-white/20"
+            >
+              {lang === 'de' ? 'EN' : 'DE'}
+            </button>
             <a
               href="#kontakt"
               onClick={(e) => e.stopPropagation()}
-              className="bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200 whitespace-nowrap inline-block"
+              className="bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white text-[13px] font-semibold px-4 py-2 rounded-full transition-all duration-200 whitespace-nowrap inline-block shadow-lg shadow-indigo-500/30 hover:-translate-y-px"
             >
-              Projekt anfragen
+              {t.nav.cta}
             </a>
           </motion.div>
 
-          {/* Collapsed burger */}
+          {/* Collapsed burger icon */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <motion.div variants={burgerVariants} animate={isExpanded ? 'expanded' : 'collapsed'}>
               <Menu className="h-5 w-5 text-white" aria-hidden="true" />
@@ -130,21 +147,32 @@ export default function Navbar() {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="fixed top-0 inset-x-0 z-50 md:hidden bg-white/90 backdrop-blur-md border-b border-white/50 shadow-sm"
+        className="fixed top-0 inset-x-0 z-50 md:hidden bg-[#09090f]/85 backdrop-blur-xl border-b border-white/[0.07] shadow-md shadow-black/40"
       >
         <div className="flex items-center justify-between h-14 px-4">
-          <a href="#" className="flex items-center gap-2" aria-label="Prince Digitals Startseite">
-            <Image src="/logo.png" alt="Prince Digitals" width={30} height={30} className="h-8 w-8 object-contain" />
-            <span className="font-bold text-[15px] text-slate-900">Prince <span className="text-amber-600">Digitals</span></span>
+          <a href="#" className="flex items-center gap-2" aria-label="Prince Digital Startseite">
+            <Image src="/logo.png" alt="Prince Digital" width={28} height={28} className="h-7 w-7 object-contain" />
+            <span className="font-bold text-[14px] text-white">
+              Prince{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Digital</span>
+            </span>
           </a>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-slate-700"
-            aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
+              className="text-[11px] font-bold text-white/45 hover:text-white transition-colors px-2 py-1 rounded-full border border-white/[0.10]"
+            >
+              {lang === 'de' ? 'EN' : 'DE'}
+            </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 text-white/70 hover:text-white transition-colors"
+              aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </motion.header>
 
@@ -152,17 +180,22 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-40 bg-white flex flex-col md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="fixed inset-0 z-40 bg-[#09090f]/97 backdrop-blur-2xl flex flex-col md:hidden"
           >
-            <div className="h-14 px-4 flex items-center justify-between border-b border-slate-100">
-              <span className="font-bold text-slate-900">Prince <span className="text-amber-600">Digitals</span></span>
-              <button onClick={() => setMobileOpen(false)} className="p-2 text-slate-700" aria-label="Schließen"><X size={22} /></button>
+            <div className="h-14 px-4 flex items-center justify-between border-b border-white/[0.07]">
+              <span className="font-bold text-white">
+                Prince{' '}
+                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Digital</span>
+              </span>
+              <button onClick={() => setMobileOpen(false)} className="p-2 text-white/70" aria-label="Schließen">
+                <X size={22} />
+              </button>
             </div>
-            <nav className="flex flex-col items-center justify-center flex-1 gap-7">
+            <nav className="flex flex-col items-center justify-center flex-1 gap-6">
               {navLinks.map((l, i) => (
                 <motion.a
                   key={l.name}
@@ -171,7 +204,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.07 }}
-                  className="text-2xl font-bold text-slate-900 hover:text-amber-600 transition-colors"
+                  className="text-2xl font-bold text-white/75 hover:text-white transition-colors"
                 >
                   {l.name}
                 </motion.a>
@@ -181,10 +214,10 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mt-2 bg-slate-900 text-white px-10 py-3.5 rounded-full font-semibold text-lg hover:bg-amber-600 transition-colors"
+                transition={{ delay: 0.38 }}
+                className="mt-4 bg-gradient-to-r from-indigo-500 to-violet-500 text-white px-10 py-3.5 rounded-full font-semibold text-lg shadow-xl shadow-indigo-500/30"
               >
-                Projekt anfragen
+                {t.nav.cta}
               </motion.a>
             </nav>
           </motion.div>

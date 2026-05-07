@@ -2,23 +2,26 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Send, Mail, MapPin, CheckCircle } from 'lucide-react'
+import { Send, Mail, MapPin, Phone, CheckCircle } from 'lucide-react'
+import { useT } from '@/lib/i18n'
 
 export default function Contact() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const t = useT()
+
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState('')
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const validate = () => {
     const e: Record<string, string> = {}
-    if (!form.name.trim()) e.name = 'Name erforderlich'
-    if (!form.email.trim()) e.email = 'E-Mail erforderlich'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Ungültige E-Mail'
-    if (!form.message.trim()) e.message = 'Nachricht erforderlich'
+    if (!form.name.trim())    e.name    = t.contact.nameRequired
+    if (!form.email.trim())   e.email   = t.contact.emailRequired
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t.contact.emailInvalid
+    if (!form.message.trim()) e.message = t.contact.messageRequired
     return e
   }
 
@@ -29,9 +32,8 @@ export default function Contact() {
     setErrors({})
     setApiError('')
     setLoading(true)
-
     try {
-      const res = await fetch('/api/contact', {
+      const res  = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -51,64 +53,88 @@ export default function Contact() {
     if (errors[k]) setErrors((p) => { const n = { ...p }; delete n[k]; return n })
   }
 
-  return (
-    <section id="kontakt" className="py-16 sm:py-24 bg-slate-900 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start" ref={ref}>
+  const inputClass = (err?: string) =>
+    `w-full px-4 py-3 bg-white/[0.05] border rounded-xl text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 focus:border-transparent transition-all ${
+      err ? 'border-red-500/50' : 'border-white/[0.10] hover:border-white/20'
+    }`
 
-          {/* Left */}
+  return (
+    <section id="kontakt" className="py-20 sm:py-28 bg-[#09090f] px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start" ref={ref}>
+
+          {/* Left — Info */}
           <div>
             <motion.span
-              initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-              className="text-amber-400 font-semibold text-xs uppercase tracking-widest"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
             >
-              Kontakt
+              {t.contact.badge}
             </motion.span>
             <motion.h2
-              initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-4"
             >
-              Erzählen Sie uns von Ihrem Projekt.
+              {t.contact.h2}
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18 }}
-              className="text-slate-400 leading-relaxed mb-8 max-w-md"
+              className="text-white/50 leading-relaxed mb-8 max-w-md"
             >
-              Kostenloses Erstgespräch, 30 Minuten, kein Pitching. Wir hören zu — dann sagen wir Ihnen ehrlich, ob und wie wir helfen können.
+              {t.contact.sub}
             </motion.p>
 
+            {/* Contact details */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 14 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.25 }}
               className="space-y-3 mb-8"
             >
               <a
                 href="mailto:admin@prince-digitals.ch"
-                className="flex items-center gap-3.5 text-slate-300 hover:text-white transition-colors group"
+                className="flex items-center gap-3.5 text-white/60 hover:text-white transition-colors group"
               >
-                <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center group-hover:bg-amber-500 transition-colors flex-shrink-0">
-                  <Mail size={17} className="text-amber-400 group-hover:text-white transition-colors" aria-hidden="true" />
+                <div className="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors flex-shrink-0">
+                  <Mail size={17} className="text-indigo-400" aria-hidden="true" />
                 </div>
                 <span className="text-sm">admin@prince-digitals.ch</span>
               </a>
-              <div className="flex items-center gap-3.5 text-slate-400">
-                <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin size={17} className="text-amber-400" aria-hidden="true" />
+
+              <a
+                href="tel:+41764336969"
+                className="flex items-center gap-3.5 text-white/60 hover:text-white transition-colors group"
+              >
+                <div className="w-10 h-10 bg-violet-500/10 border border-violet-500/20 rounded-xl flex items-center justify-center group-hover:bg-violet-500/20 transition-colors flex-shrink-0">
+                  <Phone size={17} className="text-violet-400" aria-hidden="true" />
                 </div>
-                <span className="text-sm">Speerstrasse 9, 8634 Hombrechtikon, Zürich</span>
+                <span className="text-sm">076 433 69 69</span>
+              </a>
+
+              <div className="flex items-center gap-3.5 text-white/40">
+                <div className="w-10 h-10 bg-white/[0.04] border border-white/[0.08] rounded-xl flex items-center justify-center flex-shrink-0">
+                  <MapPin size={17} className="text-white/40" aria-hidden="true" />
+                </div>
+                <span className="text-sm">Zürich, Schweiz</span>
               </div>
             </motion.div>
 
+            {/* Availability indicator */}
             <motion.div
-              initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.35 }}
-              className="inline-flex items-start gap-3.5 p-4 bg-slate-800 rounded-xl border border-slate-700"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 0.35 }}
+              className="inline-flex items-start gap-3.5 p-4 bg-white/[0.04] rounded-2xl border border-white/[0.08]"
             >
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mt-1 flex-shrink-0" aria-hidden="true" />
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse mt-1 flex-shrink-0" aria-hidden="true" />
               <div>
-                <p className="text-white font-semibold text-sm">Aktuell verfügbar</p>
-                <p className="text-slate-400 text-xs mt-0.5">Neue Projekte · Antwort in 24 Stunden</p>
+                <p className="text-white font-semibold text-sm">{t.contact.available}</p>
+                <p className="text-white/40 text-xs mt-0.5">{t.contact.availableSub}</p>
               </div>
             </motion.div>
           </div>
@@ -118,84 +144,115 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-2xl p-7 sm:p-9 shadow-2xl"
+            className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-7 sm:p-9 border border-white/[0.08] shadow-2xl shadow-black/40"
           >
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 220 }}>
-                  <CheckCircle size={50} className="text-green-500 mb-4" aria-hidden="true" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-full flex items-center justify-center mb-5 shadow-xl shadow-indigo-500/30">
+                    <CheckCircle size={32} className="text-white" aria-hidden="true" />
+                  </div>
                 </motion.div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Nachricht erhalten!</h3>
-                <p className="text-slate-500 text-sm">Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+                <h3 className="text-xl font-bold text-white mb-2">{t.contact.successTitle}</h3>
+                <p className="text-white/50 text-sm">{t.contact.successSub}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate>
-                <h3 className="text-lg font-bold text-slate-900 mb-5">Nachricht senden</h3>
+                <h3 className="text-lg font-bold text-white mb-6">{t.contact.formTitle}</h3>
+
                 {apiError && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm" role="alert">
+                  <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm" role="alert">
                     {apiError} —{' '}
-                    <a href="mailto:admin@prince-digitals.ch" className="underline font-medium">
-                      direkt mailen
+                    <a href="mailto:admin@prince-digitals.ch" className="underline font-medium hover:text-red-300">
+                      {t.contact.errorDirect}
                     </a>
                   </div>
                 )}
+
                 <div className="space-y-4">
+                  {/* Name */}
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-1">
-                      Name <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="name" className="block text-sm font-semibold text-white/70 mb-1.5">
+                      {t.contact.nameLabel} <span className="text-red-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="name" type="text" autoComplete="name" required
                       value={form.name} onChange={(e) => set('name', e.target.value)}
-                      placeholder="Max Mustermann"
-                      aria-invalid={!!errors.name} aria-describedby={errors.name ? 'err-name' : undefined}
-                      className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all ${errors.name ? 'border-red-300' : 'border-slate-200'}`}
+                      placeholder={t.contact.namePlaceholder}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'err-name' : undefined}
+                      className={inputClass(errors.name)}
                     />
-                    {errors.name && <p id="err-name" className="mt-1 text-xs text-red-500" role="alert">{errors.name}</p>}
+                    {errors.name && <p id="err-name" className="mt-1 text-xs text-red-400" role="alert">{errors.name}</p>}
                   </div>
 
+                  {/* Email */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">
-                      E-Mail <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="email" className="block text-sm font-semibold text-white/70 mb-1.5">
+                      {t.contact.emailLabel} <span className="text-red-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="email" type="email" autoComplete="email" required
                       value={form.email} onChange={(e) => set('email', e.target.value)}
-                      placeholder="max@firma.ch"
-                      aria-invalid={!!errors.email} aria-describedby={errors.email ? 'err-email' : undefined}
-                      className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all ${errors.email ? 'border-red-300' : 'border-slate-200'}`}
+                      placeholder={t.contact.emailPlaceholder}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'err-email' : undefined}
+                      className={inputClass(errors.email)}
                     />
-                    {errors.email && <p id="err-email" className="mt-1 text-xs text-red-500" role="alert">{errors.email}</p>}
+                    {errors.email && <p id="err-email" className="mt-1 text-xs text-red-400" role="alert">{errors.email}</p>}
                   </div>
 
+                  {/* Phone (optional) */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-1">
-                      Nachricht <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-white/70 mb-1.5">
+                      {t.contact.phoneLabel}
+                    </label>
+                    <input
+                      id="phone" type="tel" autoComplete="tel"
+                      value={form.phone} onChange={(e) => set('phone', e.target.value)}
+                      placeholder={t.contact.phonePlaceholder}
+                      className={inputClass()}
+                    />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-semibold text-white/70 mb-1.5">
+                      {t.contact.messageLabel} <span className="text-red-400" aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="message" required rows={4}
                       value={form.message} onChange={(e) => set('message', e.target.value)}
-                      placeholder="Was planen Sie? Erzählen Sie uns davon..."
-                      aria-invalid={!!errors.message} aria-describedby={errors.message ? 'err-message' : undefined}
-                      className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all resize-none ${errors.message ? 'border-red-300' : 'border-slate-200'}`}
+                      placeholder={t.contact.messagePlaceholder}
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? 'err-message' : undefined}
+                      className={`${inputClass(errors.message)} resize-none`}
                     />
-                    {errors.message && <p id="err-message" className="mt-1 text-xs text-red-500" role="alert">{errors.message}</p>}
+                    {errors.message && <p id="err-message" className="mt-1 text-xs text-red-400" role="alert">{errors.message}</p>}
                   </div>
 
+                  {/* Submit */}
                   <button
-                    type="submit" disabled={loading}
-                    className="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-amber-600 disabled:opacity-60 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-px mt-1"
+                    type="submit"
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-px mt-1"
                   >
                     {loading ? (
-                      <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" /> Wird gesendet…</>
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
+                        {t.contact.sending}
+                      </>
                     ) : (
-                      <>Absenden <Send size={16} aria-hidden="true" /></>
+                      <>{t.contact.submit} <Send size={16} aria-hidden="true" /></>
                     )}
                   </button>
 
-                  <p className="text-[11px] text-slate-400 text-center">
-                    Mit dem Absenden stimmen Sie unserer{' '}
-                    <a href="#" className="underline hover:text-slate-600">Datenschutzerklärung</a> zu.
+                  <p className="text-[11px] text-white/30 text-center">
+                    {t.contact.privacy}{' '}
+                    <a href="/datenschutz" className="underline hover:text-white/60 transition-colors">
+                      {t.contact.privacyLink}
+                    </a>{' '}
+                    {t.contact.privacyEnd}
                   </p>
                 </div>
               </form>

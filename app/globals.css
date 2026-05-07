@@ -12,12 +12,28 @@ html {
 
 @layer base {
   body {
-    @apply text-slate-900 antialiased;
+    @apply bg-[#09090f] text-white antialiased;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl;
+  }
+
+  .section-dark {
+    @apply bg-[#09090f];
+  }
+
+  .section-darker {
+    @apply bg-[#0d0b1a];
   }
 }

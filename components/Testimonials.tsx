@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
+import { useT } from '@/lib/i18n'
 
 const testimonials = [
   {
@@ -12,16 +13,16 @@ const testimonials = [
     text: 'Die neue Website hat unsere Anfragerate in drei Monaten verdoppelt. Schnelle Umsetzung, klare Kommunikation, modernes Ergebnis — ich hätte es nicht besser erwartet.',
     rating: 5,
     initials: 'MB',
-    color: 'bg-amber-600',
+    gradient: 'from-indigo-500 to-violet-600',
   },
   {
     name: 'Sarah Müller',
     company: 'Münchner Feinbäckerei',
     role: 'Inhaberin',
-    text: 'Transparent, persönlich und das Ergebnis ist wunderschön. Was mich am meisten überzeugt hat: Sie haben mitgedacht — nicht nur ausgeführt.',
+    text: 'Transparent, persönlich und das Ergebnis ist wunderschön. Was mich am meisten überzeugt hat: Amir Ali hat mitgedacht — nicht nur ausgeführt.',
     rating: 5,
     initials: 'SM',
-    color: 'bg-slate-700',
+    gradient: 'from-violet-500 to-purple-600',
   },
   {
     name: 'Thomas Richter',
@@ -30,61 +31,83 @@ const testimonials = [
     text: 'Innerhalb von zwei Monaten auf Seite 1 bei Google. Professionell, ehrlich und mit echtem Verständnis für unser Business — genau das haben wir gesucht.',
     rating: 5,
     initials: 'TR',
-    color: 'bg-amber-800',
+    gradient: 'from-purple-500 to-indigo-600',
   },
 ]
 
 export default function Testimonials() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const t = useT()
 
   return (
-    <section className="py-16 sm:py-24 bg-white px-4 sm:px-6 lg:px-8">
+    <section className="py-20 sm:py-28 bg-[#09090f] px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12" ref={ref}>
+
+        {/* Header */}
+        <div className="text-center mb-14" ref={ref}>
           <motion.span
-            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-            className="text-amber-600 font-semibold text-xs uppercase tracking-widest"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
           >
-            Kundenstimmen
+            {t.testimonials.badge}
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
+            className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-3"
           >
-            Was unsere Kunden sagen.
+            {t.testimonials.h2}
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.18 }}
-            className="text-base sm:text-lg text-slate-500"
+            className="text-base sm:text-lg text-white/50"
           >
-            Keine inszenierten Bewertungen. Echte Worte von echten Unternehmen.
+            {t.testimonials.sub}
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-7">
-          {testimonials.map((t, i) => (
+        {/* Testimonial cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {testimonials.map((item, i) => (
             <motion.figure
-              key={t.name}
+              key={item.name}
               initial={{ opacity: 0, y: 36 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.13 }}
-              className="relative bg-slate-50 rounded-2xl p-7 border border-slate-100 hover:shadow-lg hover:border-amber-100 transition-all flex flex-col"
+              className="relative bg-white/[0.04] rounded-2xl p-7 border border-white/[0.08] hover:border-indigo-500/30 hover:bg-white/[0.06] transition-all duration-300 flex flex-col group"
             >
-              <Quote size={32} className="absolute top-5 right-5 text-amber-100" aria-hidden="true" />
-              <div className="flex gap-0.5 mb-4" role="img" aria-label={`${t.rating} von 5 Sternen`}>
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} size={14} className="fill-amber-400 text-amber-400" aria-hidden="true" />
+              {/* Decorative quote */}
+              <Quote
+                size={36}
+                className="absolute top-5 right-5 text-indigo-500/15 group-hover:text-indigo-500/25 transition-colors"
+                aria-hidden="true"
+              />
+
+              {/* Stars */}
+              <div className="flex gap-0.5 mb-4" role="img" aria-label={`${item.rating} von 5 Sternen`}>
+                {Array.from({ length: item.rating }).map((_, j) => (
+                  <Star key={j} size={14} className="fill-indigo-400 text-indigo-400" aria-hidden="true" />
                 ))}
               </div>
-              <blockquote className="text-slate-600 text-sm leading-relaxed mb-5 flex-1">&ldquo;{t.text}&rdquo;</blockquote>
+
+              {/* Quote text */}
+              <blockquote className="text-white/60 text-sm leading-relaxed mb-6 flex-1">
+                &ldquo;{item.text}&rdquo;
+              </blockquote>
+
+              {/* Author */}
               <figcaption className="flex items-center gap-3">
-                <div className={`w-9 h-9 ${t.color} rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0`}>{t.initials}</div>
+                <div className={`w-10 h-10 bg-gradient-to-br ${item.gradient} rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0 shadow-lg`}>
+                  {item.initials}
+                </div>
                 <div>
-                  <div className="font-semibold text-slate-900 text-sm">{t.name}</div>
-                  <div className="text-slate-400 text-xs">{t.role}, {t.company}</div>
+                  <div className="font-semibold text-white text-sm">{item.name}</div>
+                  <div className="text-white/40 text-xs">{item.role}, {item.company}</div>
                 </div>
               </figcaption>
             </motion.figure>

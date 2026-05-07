@@ -2,69 +2,118 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Clock, ArrowRight } from 'lucide-react'
+import { Clock, ArrowRight, ExternalLink } from 'lucide-react'
+import { useT, useLang } from '@/lib/i18n'
 
-const projects = [
+const DE_PROJECTS = [
   {
     title: 'HealthCore Clinic',
     category: 'Webdesign & Entwicklung',
     description: 'Neue Website mit Online-Terminbuchung und Patientenportal. Ladezeit unter 1 Sekunde, DSGVO-konform.',
     tags: ['Next.js', 'Tailwind', 'Figma'],
-    gradient: 'from-blue-500 to-indigo-600',
+    gradient: 'from-indigo-600 via-violet-600 to-purple-700',
+    glowColor: 'shadow-indigo-500/25',
   },
   {
     title: 'GreenBuild GmbH',
-    category: 'Digital Marketing',
+    category: 'SEO & Marketing',
     description: 'SEO & Google Ads — dreimal mehr qualifizierte Anfragen innerhalb von 60 Tagen nach Launch.',
     tags: ['SEO', 'Google Ads', 'Analytics'],
-    gradient: 'from-emerald-500 to-teal-600',
+    gradient: 'from-violet-600 via-purple-600 to-indigo-700',
+    glowColor: 'shadow-violet-500/25',
   },
   {
     title: 'LuxeRoom Hotels',
     category: 'Webdesign & Branding',
     description: 'Premium-Webauftritt mit integriertem Buchungssystem und komplett überarbeitetem Markenauftritt.',
     tags: ['Branding', 'React', 'UX'],
-    gradient: 'from-amber-500 to-orange-600',
+    gradient: 'from-purple-600 via-indigo-600 to-blue-700',
+    glowColor: 'shadow-purple-500/25',
+  },
+  {
+    title: 'TechStart SaaS',
+    category: 'Strategie & Entwicklung',
+    description: 'Konversionsstark konzipierte Landingpage — von null auf 500 Signups im ersten Monat.',
+    tags: ['SaaS', 'Conversion', 'UX'],
+    gradient: 'from-blue-600 via-indigo-600 to-violet-700',
+    glowColor: 'shadow-blue-500/25',
+  },
+]
+
+const EN_PROJECTS = [
+  {
+    title: 'HealthCore Clinic',
+    category: 'Web Design & Development',
+    description: 'New website with online appointment booking and patient portal. Load time under 1 second, GDPR-compliant.',
+    tags: ['Next.js', 'Tailwind', 'Figma'],
+    gradient: 'from-indigo-600 via-violet-600 to-purple-700',
+    glowColor: 'shadow-indigo-500/25',
+  },
+  {
+    title: 'GreenBuild GmbH',
+    category: 'SEO & Marketing',
+    description: 'SEO & Google Ads — three times more qualified leads within 60 days of launch.',
+    tags: ['SEO', 'Google Ads', 'Analytics'],
+    gradient: 'from-violet-600 via-purple-600 to-indigo-700',
+    glowColor: 'shadow-violet-500/25',
+  },
+  {
+    title: 'LuxeRoom Hotels',
+    category: 'Web Design & Branding',
+    description: 'Premium web presence with integrated booking system and completely redesigned brand identity.',
+    tags: ['Branding', 'React', 'UX'],
+    gradient: 'from-purple-600 via-indigo-600 to-blue-700',
+    glowColor: 'shadow-purple-500/25',
   },
   {
     title: 'TechStart SaaS',
     category: 'Strategy & Development',
-    description: 'Konversionsstark konzipierte Landingpage — von null auf 500 Signups im ersten Monat.',
+    description: 'Conversion-optimized landing page — from zero to 500 signups in the first month.',
     tags: ['SaaS', 'Conversion', 'UX'],
-    gradient: 'from-violet-500 to-purple-700',
+    gradient: 'from-blue-600 via-indigo-600 to-violet-700',
+    glowColor: 'shadow-blue-500/25',
   },
 ]
 
 export default function Portfolio() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const t = useT()
+  const { lang } = useLang()
+  const projects = lang === 'de' ? DE_PROJECTS : EN_PROJECTS
 
   return (
-    <section id="portfolio" className="py-16 sm:py-24 bg-slate-50 px-4 sm:px-6 lg:px-8">
+    <section id="portfolio" className="py-20 sm:py-28 bg-[#0d0b1a] px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12" ref={ref}>
+
+        {/* Header */}
+        <div className="text-center mb-14" ref={ref}>
           <motion.span
-            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-            className="text-amber-600 font-semibold text-xs uppercase tracking-widest"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
           >
-            Portfolio
+            {t.portfolio.badge}
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
+            className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-3"
           >
-            Projekte, die etwas bewegt haben.
+            {t.portfolio.h2}
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.18 }}
-            className="text-base sm:text-lg text-slate-500"
+            className="text-base sm:text-lg text-white/50"
           >
-            Reale Resultate für reale Unternehmen — demnächst mit Screenshots und Zahlen.
+            {t.portfolio.sub}
           </motion.p>
         </div>
 
+        {/* Project grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
           {projects.map((p, i) => (
             <motion.article
@@ -72,23 +121,44 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 36 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 + i * 0.09 }}
-              className="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className={`group bg-white/[0.04] rounded-2xl overflow-hidden border border-white/[0.08] hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${p.glowColor}`}
             >
-              <div className={`relative h-44 bg-gradient-to-br ${p.gradient}`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
-                <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 bg-black/25 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                  <Clock size={11} aria-hidden="true" /> In Kürze
+              {/* Image area — gradient placeholder with hover reveal */}
+              <div className={`relative h-52 bg-gradient-to-br ${p.gradient} overflow-hidden`}>
+                {/* Noise texture overlay */}
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.4%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay" />
+
+                {/* Shimmer on hover */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+
+                {/* Soon badge */}
+                <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 bg-black/30 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/20">
+                  <Clock size={11} aria-hidden="true" /> {t.portfolio.soon}
                 </div>
-                <div className="absolute bottom-0 inset-x-0 px-5 py-3.5 bg-gradient-to-t from-black/30 to-transparent">
+
+                {/* External link on hover */}
+                <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
+                    <ExternalLink size={14} className="text-white" aria-hidden="true" />
+                  </div>
+                </div>
+
+                {/* Title bar */}
+                <div className="absolute bottom-0 inset-x-0 px-5 py-4 bg-gradient-to-t from-black/50 to-transparent">
                   <h3 className="text-white font-bold text-lg leading-tight">{p.title}</h3>
                 </div>
               </div>
+
               <div className="p-5">
-                <span className="text-amber-600 text-[11px] font-bold uppercase tracking-widest">{p.category}</span>
-                <p className="text-slate-500 text-sm leading-relaxed mt-1.5 mb-3">{p.description}</p>
+                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent text-[11px] font-bold uppercase tracking-widest">
+                  {p.category}
+                </span>
+                <p className="text-white/50 text-sm leading-relaxed mt-1.5 mb-3">{p.description}</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => (
-                    <span key={t} className="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-1 rounded-full">{t}</span>
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="bg-white/[0.06] border border-white/[0.10] text-white/60 text-xs font-medium px-2.5 py-1 rounded-full">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -96,12 +166,18 @@ export default function Portfolio() {
           ))}
         </div>
 
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.55 }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.55 }}
           className="text-center mt-10"
         >
-          <a href="#kontakt" className="inline-flex items-center gap-1.5 text-amber-600 font-semibold text-sm hover:gap-3 transition-all">
-            Ihr Projekt könnte hier stehen <ArrowRight size={16} aria-hidden="true" />
+          <a
+            href="#kontakt"
+            className="inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-sm hover:gap-3 transition-all"
+          >
+            {t.portfolio.cta} <ArrowRight size={16} className="text-violet-400" aria-hidden="true" />
           </a>
         </motion.div>
       </div>
