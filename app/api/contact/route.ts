@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const TO_EMAILS = ['admin@prince-digitals.ch', 'amirali@alizadeh.ch']
+// Once prince-digitals.ch is verified in Resend, add 'admin@prince-digitals.ch' here
+// and change FROM_EMAIL to 'noreply@prince-digitals.ch'
+const FROM_EMAIL = 'Prince Digital Website <onboarding@resend.dev>'
+const TO_EMAILS  = ['amirali@alizadeh.ch']           // add 'admin@prince-digitals.ch' after domain verification
 
 function buildHtml(name: string, email: string, phone: string, message: string) {
   return `
@@ -33,7 +36,7 @@ function buildHtml(name: string, email: string, phone: string, message: string) 
       </tr>
     </table>
     <div style="margin-top:24px;padding:16px;background:#f3f3ff;border-radius:8px;font-size:13px;color:#555;">
-      <strong>Antworten</strong> an: <a href="mailto:${email}" style="color:#6366f1;">${email}</a>
+      <strong>Direkt antworten an:</strong> <a href="mailto:${email}" style="color:#6366f1;">${email}</a>
     </div>
   </div>
   <p style="text-align:center;color:#aaa;font-size:11px;margin-top:16px;">
@@ -52,11 +55,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Alle Pflichtfelder sind erforderlich.' }, { status: 400 })
     }
 
-    const resendKey   = process.env.RESEND_API_KEY
-    const web3Key     = process.env.WEB3FORMS_ACCESS_KEY
-    const subject     = `Neue Anfrage von ${name} — Prince Digital Website`
+    const resendKey = process.env.RESEND_API_KEY
+    const web3Key   = process.env.WEB3FORMS_ACCESS_KEY
+    const subject   = `Neue Anfrage von ${name} — Prince Digital Website`
 
-    /* ── 1. Resend (preferred — sends to both emails) ─────────────── */
+    /* ── 1. Resend ─────────────────────────────────────────────── */
     if (resendKey) {
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -65,22 +68,24 @@ export async function POST(req: NextRequest) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Prince Digital Website <noreply@prince-digitals.ch>',
+          from: FROM_EMAIL,
           to: TO_EMAILS,
           reply_to: email,
           subject,
           html: buildHtml(name, email, phone, message),
         }),
       })
+
       if (!res.ok) {
         const err = await res.json().catch(() => ({}))
         console.error('[Resend error]', err)
         return NextResponse.json({ error: 'Fehler beim Senden. Bitte direkt mailen.' }, { status: 500 })
       }
+
       return NextResponse.json({ success: true })
     }
 
-    /* ── 2. Web3Forms fallback (sends to registered email only) ────── */
+    /* ── 2. Web3Forms fallback ─────────────────────────────────── */
     if (web3Key && web3Key !== 'YOUR_ACCESS_KEY_HERE') {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -89,10 +94,7 @@ export async function POST(req: NextRequest) {
           access_key: web3Key,
           subject,
           from_name: 'Prince Digital Website',
-          name,
-          email,
-          phone,
-          message,
+          name, email, phone, message,
           redirect: false,
         }),
       })
@@ -103,7 +105,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true })
     }
 
-    /* ── 3. Dev fallback ───────────────────────────────────────────── */
+    /* ── 3. Dev fallback ───────────────────────────────────────── */
     console.log('[Kontaktformular — kein Email-Service konfiguriert]', { name, email, phone, message })
     return NextResponse.json({ success: true })
 
