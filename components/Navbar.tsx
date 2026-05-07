@@ -69,8 +69,8 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Floating glass pill — tablet & desktop (md = 768px+) ─── */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:block px-2 w-full max-w-[calc(100vw-24px)]">
+      {/* ── Floating glass pill — alle Bildschirmgrössen ab 768px ── */}
+      <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center">
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={isExpanded ? 'expanded' : 'collapsed'}
@@ -80,24 +80,24 @@ export default function Navbar() {
           onClick={handlePillClick}
           aria-label="Hauptnavigation"
           className={cn(
-            'mx-auto relative flex items-center overflow-hidden rounded-full h-11',
+            'relative flex items-center overflow-hidden rounded-full h-12',
             'shadow-2xl shadow-black/60',
             isExpanded
               ? 'bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12]'
-              : 'bg-white/[0.08] backdrop-blur-2xl border border-white/[0.12] cursor-pointer justify-center w-11',
+              : 'bg-white/[0.08] backdrop-blur-2xl border border-white/[0.12] cursor-pointer justify-center',
           )}
         >
-          {/* Logo — image always, text hidden on tablet */}
-          <motion.div variants={logoVariants} className="flex items-center gap-1.5 pl-2.5 pr-1 flex-shrink-0">
+          {/* Logo */}
+          <motion.div variants={logoVariants} className="flex items-center gap-2 pl-3 pr-1 flex-shrink-0">
             <Image
               src="/logo.png"
               alt="Prince Digital"
-              width={26}
-              height={26}
-              className="h-6 w-6 object-contain flex-shrink-0"
+              width={28}
+              height={28}
+              className="h-7 w-7 object-contain flex-shrink-0"
               priority
             />
-            <span className="hidden lg:inline font-bold text-[13px] text-white whitespace-nowrap leading-none">
+            <span className="font-bold text-[14px] text-white whitespace-nowrap leading-none">
               Prince{' '}
               <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
                 Digital
@@ -105,23 +105,26 @@ export default function Navbar() {
             </span>
           </motion.div>
 
-          {/* Nav links — tablet: smaller, desktop: normal */}
-          <div className={cn('flex items-center px-0.5', !isExpanded && 'pointer-events-none')}>
+          {/* Nav links */}
+          <div className={cn('flex items-center px-1', !isExpanded && 'pointer-events-none')}>
             {navLinks.map((l) => (
               <motion.a
                 key={l.name}
                 href={l.href}
                 variants={itemVariants}
                 onClick={(e) => e.stopPropagation()}
-                className="text-[11px] lg:text-[13px] font-medium text-white/65 hover:text-white transition-colors px-2 lg:px-3 py-2 whitespace-nowrap rounded-full hover:bg-white/[0.06]"
+                className="text-[13px] font-medium text-white/65 hover:text-white transition-colors px-3 py-2 whitespace-nowrap rounded-full hover:bg-white/[0.06]"
               >
                 {l.name}
               </motion.a>
             ))}
           </div>
 
-          {/* Lang switcher — hidden on tablet, shown on desktop */}
-          <motion.div variants={itemVariants} className={cn('hidden lg:flex items-center pr-1', !isExpanded && 'pointer-events-none')}>
+          {/* Language switcher */}
+          <motion.div
+            variants={itemVariants}
+            className={cn('flex items-center pr-1', !isExpanded && 'pointer-events-none')}
+          >
             <button
               onClick={(e) => { e.stopPropagation(); setLang(lang === 'de' ? 'en' : 'de') }}
               className="text-[11px] font-bold text-white/45 hover:text-white/80 transition-colors px-2 py-1 rounded-full border border-white/[0.10] hover:border-white/20"
@@ -130,22 +133,24 @@ export default function Navbar() {
             </button>
           </motion.div>
 
-          {/* CTA button — shorter on tablet */}
-          <motion.div variants={itemVariants} className={cn('pr-2 flex-shrink-0', !isExpanded && 'pointer-events-none')}>
+          {/* CTA button */}
+          <motion.div
+            variants={itemVariants}
+            className={cn('pr-2 flex-shrink-0', !isExpanded && 'pointer-events-none')}
+          >
             <a
               href="#kontakt"
               onClick={(e) => e.stopPropagation()}
-              className="bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white text-[11px] lg:text-[13px] font-semibold px-3 lg:px-4 py-1.5 lg:py-2 rounded-full transition-all duration-200 whitespace-nowrap inline-block shadow-lg shadow-indigo-500/30 hover:-translate-y-px"
+              className="bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white text-[13px] font-semibold px-4 py-2 rounded-full transition-all duration-200 whitespace-nowrap inline-block shadow-lg shadow-indigo-500/30 hover:-translate-y-px"
             >
-              <span className="lg:hidden">Anfragen</span>
-              <span className="hidden lg:inline">{t.nav.cta}</span>
+              {t.nav.cta}
             </a>
           </motion.div>
 
           {/* Collapsed burger icon */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <motion.div variants={burgerVariants} animate={isExpanded ? 'expanded' : 'collapsed'}>
-              <Menu className="h-4 w-4 text-white" aria-hidden="true" />
+              <Menu className="h-5 w-5 text-white" aria-hidden="true" />
             </motion.div>
           </div>
         </motion.nav>
