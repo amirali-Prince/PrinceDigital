@@ -8,20 +8,20 @@ const services = [
   {
     icon: Globe,
     title: 'Webdesign & Entwicklung',
-    description: 'Schnelle, moderne Websites, die Vertrauen schaffen und Besucher in Kunden verwandeln.',
-    features: ['Next.js & React', 'Mobile-first', 'SEO-ready', 'Performance 90+'],
+    description: 'Keine Templates. Keine Kompromisse. Wir bauen Websites, die Ihrer Marke gerecht werden — schnell, scharf und darauf ausgelegt, Besucher in zahlende Kunden zu verwandeln.',
+    features: ['Next.js & React', 'Mobile-first', 'SEO-optimiert', 'Core Web Vitals 90+'],
   },
   {
     icon: TrendingUp,
     title: 'Digital Marketing',
-    description: 'SEO, Google Ads und Social Media — gezielt eingesetzt für messbar mehr Anfragen.',
-    features: ['SEO & Content', 'Google & Meta Ads', 'Social Media', 'Reporting'],
+    description: 'Sichtbarkeit ohne Substanz bringt nichts. Wir schalten Kampagnen, die kaufbereite Kunden erreichen — gezielt, messbar und mit Respekt für Ihr Budget.',
+    features: ['SEO & Content', 'Google & Meta Ads', 'Social Media', 'Reporting & KPIs'],
     featured: true,
   },
   {
     icon: Lightbulb,
-    title: 'Strategy & Consulting',
-    description: 'Klare digitale Strategie mit konkretem Aktionsplan — individuell für Ihr Unternehmen.',
+    title: 'Strategy & Beratung',
+    description: 'Bevor wir eine Zeile schreiben, denken wir. Wir analysieren Ihren Markt, Ihre Konkurrenz und Ihre Chancen — und liefern einen Plan, der hält.',
     features: ['Digitale Strategie', 'UX-Audit', 'Wettbewerbsanalyse', 'Roadmap'],
   },
 ]
@@ -45,14 +45,14 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
           >
-            Alles aus einer Hand
+            Drei Disziplinen. Ein Ergebnis.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.18 }}
-            className="max-w-lg mx-auto text-base sm:text-lg text-slate-500"
+            className="max-w-xl mx-auto text-base sm:text-lg text-slate-500"
           >
-            Von der Website bis zur Kampagne — wir liefern was zählt.
+            Website, Marketing und Strategie — nicht als Einzelpakete, sondern als System, das zusammenarbeitet.
           </motion.p>
         </div>
 

@@ -5,9 +5,21 @@ import { motion, useInView } from 'framer-motion'
 import { Zap, Shield, HeartHandshake, ArrowRight } from 'lucide-react'
 
 const usps = [
-  { icon: Zap, title: 'Schnelle Umsetzung', description: 'Von der Idee zur fertigen Website in wenigen Wochen.' },
-  { icon: Shield, title: 'Transparent & fair', description: 'Klare Preise, keine versteckten Kosten, direkte Kommunikation.' },
-  { icon: HeartHandshake, title: 'Persönlich betreut', description: 'Ein fester Ansprechpartner — kein Callcenter, keine Anonymität.' },
+  {
+    icon: Zap,
+    title: 'Schnelle Umsetzung',
+    description: 'Vom Erstgespräch zur fertigen Website in 3–5 Wochen. Kein endloses Hin und Her.',
+  },
+  {
+    icon: Shield,
+    title: 'Transparent & fair',
+    description: 'Fixpreise, klare Meilensteine — keine bösen Überraschungen auf der Rechnung.',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Direkt & persönlich',
+    description: 'Sie sprechen immer direkt mit uns — nicht mit einem Ticketsystem oder Account Manager.',
+  },
 ]
 
 export default function About() {
@@ -18,6 +30,7 @@ export default function About() {
     <section id="ueber-uns" className="py-16 sm:py-24 bg-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center" ref={ref}>
+
           {/* Left */}
           <div>
             <motion.span
@@ -31,7 +44,8 @@ export default function About() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-5"
             >
-              Ihr digitaler Partner in Zürich
+              Nicht die grösste Agentur.{' '}
+              <span className="text-amber-600">Die richtige.</span>
             </motion.h2>
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -39,13 +53,13 @@ export default function About() {
               className="space-y-3 text-slate-500 leading-relaxed"
             >
               <p>
-                Prince Digitals Alizadeh ist Ihre Digitalagentur aus Hombrechtikon, Zürich.
-                Wir entwickeln Websites und digitale Strategien für KMUs, die online wachsen wollen —
-                persönlich, effizient und ergebnisorientiert.
+                Prince Digitals ist eine Boutique-Agentur aus Hombrechtikon, Zürich.
+                Wir arbeiten mit KMUs, die ihre digitale Präsenz ernst nehmen —
+                und mit jemandem zusammenarbeiten wollen, der dasselbe tut.
               </p>
               <p>
-                Kein Grosskonzern. Kein Callcenter. Sie sprechen direkt mit uns —
-                und wir liefern, was wir versprechen.
+                Kein Grosskonzern. Kein Callcenter. Bei uns haben Sie immer einen direkten Draht
+                zu den Menschen, die Ihre Website bauen und Ihre Kampagnen steuern.
               </p>
             </motion.div>
             <motion.a
@@ -53,7 +67,7 @@ export default function About() {
               href="#kontakt"
               className="inline-flex items-center gap-2 mt-7 bg-slate-900 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-px"
             >
-              Zusammenarbeiten <ArrowRight size={16} aria-hidden="true" />
+              Kennenlernen <ArrowRight size={16} aria-hidden="true" />
             </motion.a>
           </div>
 

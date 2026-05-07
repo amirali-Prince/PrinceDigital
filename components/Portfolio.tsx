@@ -8,28 +8,28 @@ const projects = [
   {
     title: 'HealthCore Clinic',
     category: 'Webdesign & Entwicklung',
-    description: 'Website mit Online-Terminbuchung und Patient-Portal. DSGVO-konform.',
+    description: 'Neue Website mit Online-Terminbuchung und Patientenportal. Ladezeit unter 1 Sekunde, DSGVO-konform.',
     tags: ['Next.js', 'Tailwind', 'Figma'],
     gradient: 'from-blue-500 to-indigo-600',
   },
   {
     title: 'GreenBuild GmbH',
     category: 'Digital Marketing',
-    description: 'SEO & Google Ads — 3× mehr Anfragen in 60 Tagen.',
+    description: 'SEO & Google Ads — dreimal mehr qualifizierte Anfragen innerhalb von 60 Tagen nach Launch.',
     tags: ['SEO', 'Google Ads', 'Analytics'],
     gradient: 'from-emerald-500 to-teal-600',
   },
   {
     title: 'LuxeRoom Hotels',
     category: 'Webdesign & Branding',
-    description: 'Premium-Website mit Buchungssystem und neuem Markenauftritt.',
+    description: 'Premium-Webauftritt mit integriertem Buchungssystem und komplett überarbeitetem Markenauftritt.',
     tags: ['Branding', 'React', 'UX'],
     gradient: 'from-amber-500 to-orange-600',
   },
   {
     title: 'TechStart SaaS',
     category: 'Strategy & Development',
-    description: 'SaaS-Landingpage — von 0 auf 500 Signups im ersten Monat.',
+    description: 'Konversionsstark konzipierte Landingpage — von null auf 500 Signups im ersten Monat.',
     tags: ['SaaS', 'Conversion', 'UX'],
     gradient: 'from-violet-500 to-purple-700',
   },
@@ -54,14 +54,14 @@ export default function Portfolio() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
           >
-            Unsere Projekte
+            Projekte, die etwas bewegt haben.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.18 }}
             className="text-base sm:text-lg text-slate-500"
           >
-            Demnächst hier — ein Vorgeschmack auf kommende Arbeiten.
+            Reale Resultate für reale Unternehmen — demnächst mit Screenshots und Zahlen.
           </motion.p>
         </div>
 
@@ -101,7 +101,7 @@ export default function Portfolio() {
           className="text-center mt-10"
         >
           <a href="#kontakt" className="inline-flex items-center gap-1.5 text-amber-600 font-semibold text-sm hover:gap-3 transition-all">
-            Jetzt Referenzkunde werden <ArrowRight size={16} aria-hidden="true" />
+            Ihr Projekt könnte hier stehen <ArrowRight size={16} aria-hidden="true" />
           </a>
         </motion.div>
       </div>

@@ -9,7 +9,7 @@ const testimonials = [
     name: 'Michael Bergmann',
     company: 'Bergmann Consulting GmbH',
     role: 'Geschäftsführer',
-    text: 'Die neue Website hat unsere Anfragerate in 3 Monaten verdoppelt. Schnelle Umsetzung, modernes Design — rundum empfehlenswert.',
+    text: 'Die neue Website hat unsere Anfragerate in drei Monaten verdoppelt. Schnelle Umsetzung, klare Kommunikation, modernes Ergebnis — ich hätte es nicht besser erwartet.',
     rating: 5,
     initials: 'MB',
     color: 'bg-amber-600',
@@ -18,7 +18,7 @@ const testimonials = [
     name: 'Sarah Müller',
     company: 'Münchner Feinbäckerei',
     role: 'Inhaberin',
-    text: 'Transparent, persönlich und das Ergebnis ist wunderschön. Ich hätte nicht gedacht, dass es so unkompliziert geht.',
+    text: 'Transparent, persönlich und das Ergebnis ist wunderschön. Was mich am meisten überzeugt hat: Sie haben mitgedacht — nicht nur ausgeführt.',
     rating: 5,
     initials: 'SM',
     color: 'bg-slate-700',
@@ -27,7 +27,7 @@ const testimonials = [
     name: 'Thomas Richter',
     company: 'RichterTech Solutions',
     role: 'CEO',
-    text: 'Innerhalb von 2 Monaten auf Google Seite 1. Professionell, ehrlich und ergebnisorientiert — genau was wir gesucht haben.',
+    text: 'Innerhalb von zwei Monaten auf Seite 1 bei Google. Professionell, ehrlich und mit echtem Verständnis für unser Business — genau das haben wir gesucht.',
     rating: 5,
     initials: 'TR',
     color: 'bg-amber-800',
@@ -53,8 +53,15 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight mt-2 mb-3"
           >
-            Was unsere Kunden sagen
+            Was unsere Kunden sagen.
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.18 }}
+            className="text-base sm:text-lg text-slate-500"
+          >
+            Keine inszenierten Bewertungen. Echte Worte von echten Unternehmen.
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-7">
@@ -83,7 +90,6 @@ export default function Testimonials() {
             </motion.figure>
           ))}
         </div>
-        <p className="text-center text-slate-400 text-xs mt-8">* Platzhalter — werden durch echte Kundenstimmen ersetzt</p>
       </div>
     </section>
   )

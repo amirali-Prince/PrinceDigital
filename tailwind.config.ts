@@ -11,20 +11,29 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-plus-jakarta)', 'system-ui', 'sans-serif'],
       },
-      colors: {
-        accent: {
-          50:  '#eff6ff',
-          100: '#dbeafe',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-        },
-      },
       animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        first:  'moveVertical 30s ease infinite',
+        second: 'moveInCircle 20s reverse infinite',
+        third:  'moveInCircle 40s linear infinite',
+        fourth: 'moveHorizontal 40s ease infinite',
+        fifth:  'moveInCircle 20s ease infinite',
+      },
+      keyframes: {
+        moveInCircle: {
+          '0%':   { transform: 'rotate(0deg)' },
+          '50%':  { transform: 'rotate(180deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        moveVertical: {
+          '0%':   { transform: 'translateY(-50%)' },
+          '50%':  { transform: 'translateY(50%)' },
+          '100%': { transform: 'translateY(-50%)' },
+        },
+        moveHorizontal: {
+          '0%':   { transform: 'translateX(-50%) translateY(-10%)' },
+          '50%':  { transform: 'translateX(50%) translateY(10%)' },
+          '100%': { transform: 'translateX(-50%) translateY(-10%)' },
+        },
       },
     },
   },

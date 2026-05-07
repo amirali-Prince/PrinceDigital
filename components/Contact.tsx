@@ -69,14 +69,14 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-4"
             >
-              Projekt anfragen
+              Erzählen Sie uns von Ihrem Projekt.
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18 }}
               className="text-slate-400 leading-relaxed mb-8 max-w-md"
             >
-              Kostenlose Erstberatung — wir melden uns innerhalb von 24 Stunden.
+              Kostenloses Erstgespräch, 30 Minuten, kein Pitching. Wir hören zu — dann sagen wir Ihnen ehrlich, ob und wie wir helfen können.
             </motion.p>
 
             <motion.div
@@ -108,7 +108,7 @@ export default function Contact() {
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mt-1 flex-shrink-0" aria-hidden="true" />
               <div>
                 <p className="text-white font-semibold text-sm">Aktuell verfügbar</p>
-                <p className="text-slate-400 text-xs mt-0.5">Neue Projekte · Antwort in 24h</p>
+                <p className="text-slate-400 text-xs mt-0.5">Neue Projekte · Antwort in 24 Stunden</p>
               </div>
             </motion.div>
           </div>
@@ -125,7 +125,7 @@ export default function Contact() {
                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 220 }}>
                   <CheckCircle size={50} className="text-green-500 mb-4" aria-hidden="true" />
                 </motion.div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Nachricht gesendet!</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Nachricht erhalten!</h3>
                 <p className="text-slate-500 text-sm">Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
               </div>
             ) : (
@@ -140,7 +140,6 @@ export default function Contact() {
                   </div>
                 )}
                 <div className="space-y-4">
-                  {/* Name */}
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-1">
                       Name <span className="text-red-500" aria-hidden="true">*</span>
@@ -155,7 +154,6 @@ export default function Contact() {
                     {errors.name && <p id="err-name" className="mt-1 text-xs text-red-500" role="alert">{errors.name}</p>}
                   </div>
 
-                  {/* Email */}
                   <div>
                     <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">
                       E-Mail <span className="text-red-500" aria-hidden="true">*</span>
@@ -170,7 +168,6 @@ export default function Contact() {
                     {errors.email && <p id="err-email" className="mt-1 text-xs text-red-500" role="alert">{errors.email}</p>}
                   </div>
 
-                  {/* Message */}
                   <div>
                     <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-1">
                       Nachricht <span className="text-red-500" aria-hidden="true">*</span>
@@ -178,7 +175,7 @@ export default function Contact() {
                     <textarea
                       id="message" required rows={4}
                       value={form.message} onChange={(e) => set('message', e.target.value)}
-                      placeholder="Beschreiben Sie Ihr Projekt..."
+                      placeholder="Was planen Sie? Erzählen Sie uns davon..."
                       aria-invalid={!!errors.message} aria-describedby={errors.message ? 'err-message' : undefined}
                       className={`w-full px-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all resize-none ${errors.message ? 'border-red-300' : 'border-slate-200'}`}
                     />
