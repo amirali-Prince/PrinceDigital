@@ -24,9 +24,21 @@ const legalLinks = [
 ]
 
 const socials = [
-  { Icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-  { Icon: Linkedin,  href: 'https://linkedin.com',  label: 'LinkedIn'  },
-  { Icon: Facebook,  href: 'https://facebook.com',  label: 'Facebook'  },
+  {
+    Icon: Instagram,
+    href: 'https://www.instagram.com/prince_digitals.alizadeh?igsh=ejNwcGV4MTRsMGtj&utm_source=qr',
+    label: 'Instagram',
+  },
+  {
+    Icon: Linkedin,
+    href: 'https://www.linkedin.com/company/prince-digitals/',
+    label: 'LinkedIn',
+  },
+  {
+    Icon: Facebook,
+    href: 'https://www.facebook.com/share/1BaV2YQ96K/?mibextid=wwXIfr',
+    label: 'Facebook',
+  },
 ]
 
 export default function Footer() {
