@@ -1,49 +1,95 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// Once prince-digitals.ch is verified in Resend, add 'admin@prince-digitals.ch' here
-// and change FROM_EMAIL to 'noreply@prince-digitals.ch'
-const FROM_EMAIL = 'Prince Digital Website <onboarding@resend.dev>'
-const TO_EMAILS  = ['amirali@alizadeh.ch']           // add 'admin@prince-digitals.ch' after domain verification
+const RESEND_KEY  = process.env.RESEND_API_KEY ?? ''
+const FROM        = 'Prince Digital <onboarding@resend.dev>'
+const PRIMARY_TO  = 'amirali@alizadeh.ch'
+const BUSINESS_TO = 'admin@prince-digitals.ch'   // works after prince-digitals.ch is verified in Resend
+
+function esc(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+}
 
 function buildHtml(name: string, email: string, phone: string, message: string) {
-  return `
-<!DOCTYPE html>
+  const safeMsg = esc(message).replace(/\n/g, '<br>')
+  return `<!DOCTYPE html>
 <html lang="de">
-<head><meta charset="UTF-8"></head>
-<body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f8f8fc;">
-  <div style="background:#fff;border-radius:12px;padding:32px;border:1px solid #e5e5ea;">
-    <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #6366f1;">
-      <h1 style="margin:0;font-size:22px;color:#09090f;">Neue Anfrage über die Website</h1>
-      <p style="margin:4px 0 0;color:#888;font-size:13px;">Prince Digital — Kontaktformular</p>
-    </div>
-    <table style="width:100%;border-collapse:collapse;font-size:14px;">
-      <tr>
-        <td style="padding:8px 0;color:#555;width:120px;vertical-align:top;">Name</td>
-        <td style="padding:8px 0;color:#111;font-weight:600;">${name}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 0;color:#555;vertical-align:top;">E-Mail</td>
-        <td style="padding:8px 0;"><a href="mailto:${email}" style="color:#6366f1;">${email}</a></td>
-      </tr>
-      ${phone ? `
-      <tr>
-        <td style="padding:8px 0;color:#555;vertical-align:top;">Telefon</td>
-        <td style="padding:8px 0;"><a href="tel:${phone}" style="color:#6366f1;">${phone}</a></td>
-      </tr>` : ''}
-      <tr>
-        <td style="padding:12px 0;color:#555;vertical-align:top;">Nachricht</td>
-        <td style="padding:12px 0;color:#111;line-height:1.6;">${message.replace(/\n/g, '<br>')}</td>
-      </tr>
-    </table>
-    <div style="margin-top:24px;padding:16px;background:#f3f3ff;border-radius:8px;font-size:13px;color:#555;">
-      <strong>Direkt antworten an:</strong> <a href="mailto:${email}" style="color:#6366f1;">${email}</a>
-    </div>
-  </div>
-  <p style="text-align:center;color:#aaa;font-size:11px;margin-top:16px;">
-    Prince Digital · admin@prince-digitals.ch · 076 433 69 69
-  </p>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f4f8;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:32px auto;">
+    <tr><td style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e5e5ea;box-shadow:0 4px 24px rgba(0,0,0,0.06);">
+
+      <!-- Header -->
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr><td style="background:linear-gradient(135deg,#6366f1 0%,#7c3aed 100%);padding:28px 32px;">
+          <p style="margin:0;color:rgba(255,255,255,0.75);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Prince Digital</p>
+          <h1 style="margin:6px 0 0;color:#fff;font-size:22px;font-weight:700;">Neue Anfrage</h1>
+        </td></tr>
+      </table>
+
+      <!-- Body -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="padding:28px 32px;">
+        <tr><td>
+          <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+            <tr>
+              <td style="padding:10px 0;color:#6b7280;font-size:13px;font-weight:600;width:100px;vertical-align:top;border-bottom:1px solid #f3f4f6;">Name</td>
+              <td style="padding:10px 0 10px 16px;color:#111827;font-size:14px;font-weight:600;border-bottom:1px solid #f3f4f6;">${esc(name)}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 0;color:#6b7280;font-size:13px;font-weight:600;vertical-align:top;border-bottom:1px solid #f3f4f6;">E-Mail</td>
+              <td style="padding:10px 0 10px 16px;border-bottom:1px solid #f3f4f6;"><a href="mailto:${esc(email)}" style="color:#6366f1;font-size:14px;text-decoration:none;">${esc(email)}</a></td>
+            </tr>
+            ${phone ? `<tr>
+              <td style="padding:10px 0;color:#6b7280;font-size:13px;font-weight:600;vertical-align:top;border-bottom:1px solid #f3f4f6;">Telefon</td>
+              <td style="padding:10px 0 10px 16px;border-bottom:1px solid #f3f4f6;"><a href="tel:${esc(phone)}" style="color:#6366f1;font-size:14px;text-decoration:none;">${esc(phone)}</a></td>
+            </tr>` : ''}
+            <tr>
+              <td style="padding:14px 0 0;color:#6b7280;font-size:13px;font-weight:600;vertical-align:top;">Nachricht</td>
+              <td style="padding:14px 0 0 16px;color:#111827;font-size:14px;line-height:1.7;">${safeMsg}</td>
+            </tr>
+          </table>
+
+          <!-- Reply CTA -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
+            <tr><td style="background:#f5f3ff;border-radius:10px;padding:16px 20px;">
+              <p style="margin:0;color:#6b7280;font-size:13px;">
+                <strong style="color:#374151;">Direkt antworten:</strong>&nbsp;
+                <a href="mailto:${esc(email)}" style="color:#6366f1;text-decoration:none;">${esc(email)}</a>
+              </p>
+            </td></tr>
+          </table>
+        </td></tr>
+      </table>
+
+      <!-- Footer -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="padding:0 32px 24px;">
+        <tr><td style="border-top:1px solid #f3f4f6;padding-top:20px;">
+          <p style="margin:0;color:#9ca3af;font-size:11px;text-align:center;">
+            Prince Digital &middot; admin@prince-digitals.ch &middot; +41 76 433 69 69 &middot; Zürich
+          </p>
+        </td></tr>
+      </table>
+
+    </td></tr>
+  </table>
 </body>
 </html>`
+}
+
+async function sendViaResend(to: string, subject: string, html: string, replyTo: string) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${RESEND_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ from: FROM, to: [to], reply_to: replyTo, subject, html }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(JSON.stringify(err))
+  }
+  return res.json()
 }
 
 export async function POST(req: NextRequest) {
@@ -55,61 +101,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Alle Pflichtfelder sind erforderlich.' }, { status: 400 })
     }
 
-    const resendKey = process.env.RESEND_API_KEY
-    const web3Key   = process.env.WEB3FORMS_ACCESS_KEY
-    const subject   = `Neue Anfrage von ${name} — Prince Digital Website`
-
-    /* ── 1. Resend ─────────────────────────────────────────────── */
-    if (resendKey) {
-      const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: FROM_EMAIL,
-          to: TO_EMAILS,
-          reply_to: email,
-          subject,
-          html: buildHtml(name, email, phone, message),
-        }),
-      })
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        console.error('[Resend error]', err)
-        return NextResponse.json({ error: 'Fehler beim Senden. Bitte direkt mailen.' }, { status: 500 })
-      }
-
+    if (!RESEND_KEY) {
+      console.warn('[Contact] RESEND_API_KEY not configured')
       return NextResponse.json({ success: true })
     }
 
-    /* ── 2. Web3Forms fallback ─────────────────────────────────── */
-    if (web3Key && web3Key !== 'YOUR_ACCESS_KEY_HERE') {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: web3Key,
-          subject,
-          from_name: 'Prince Digital Website',
-          name, email, phone, message,
-          redirect: false,
-        }),
-      })
-      const data = await res.json()
-      if (!data.success) {
-        return NextResponse.json({ error: 'Fehler beim Senden. Bitte direkt mailen.' }, { status: 500 })
-      }
-      return NextResponse.json({ success: true })
-    }
+    const subject = `Neue Anfrage von ${name} — Prince Digital`
+    const html    = buildHtml(name, email, phone, message)
 
-    /* ── 3. Dev fallback ───────────────────────────────────────── */
-    console.log('[Kontaktformular — kein Email-Service konfiguriert]', { name, email, phone, message })
+    // Primary recipient — must succeed
+    await sendViaResend(PRIMARY_TO, subject, html, email)
+
+    // Business email — fire-and-forget; fails silently until domain is verified in Resend
+    sendViaResend(BUSINESS_TO, subject, html, email).catch((err: unknown) => {
+      console.warn('[Contact] business email failed (domain not yet verified):', err)
+    })
+
     return NextResponse.json({ success: true })
-
-  } catch {
-    return NextResponse.json({ error: 'Server-Fehler. Bitte erneut versuchen.' }, { status: 500 })
+  } catch (err: unknown) {
+    console.error('[Contact] Resend error:', err)
+    return NextResponse.json({ error: 'Fehler beim Senden. Bitte direkt mailen.' }, { status: 500 })
   }
 }
