@@ -26,7 +26,7 @@ export default function About() {
             <motion.span
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
-              className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
+              className="sig-badge"
             >
               {t.about.badge}
             </motion.span>
@@ -35,7 +35,7 @@ export default function About() {
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-5 leading-tight"
+              className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-4 mb-0 leading-tight"
             >
               {t.about.h2a}{' '}
               <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
@@ -44,10 +44,18 @@ export default function About() {
             </motion.h2>
 
             <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ delay: 0.16, duration: 0.4 }}
+              style={{ transformOrigin: 'left' }}
+              className="sig-line"
+            />
+
+            <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.18 }}
-              className="space-y-3 text-white/55 leading-relaxed"
+              transition={{ delay: 0.22 }}
+              className="space-y-3 text-white/60 leading-relaxed"
             >
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
@@ -90,7 +98,7 @@ export default function About() {
                   initial={{ opacity: 0, x: 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.45, delay: 0.18 + i * 0.12 }}
-                  className="group flex gap-4 p-5 bg-white/[0.04] rounded-2xl border border-white/[0.08] hover:border-indigo-500/30 hover:bg-white/[0.06] transition-all duration-300"
+                  className="group flex gap-4 p-5 bg-white/[0.04] rounded-2xl border-[1.5px] border-white/[0.07] border-l-indigo-500/40 hover:border-indigo-500/35 hover:border-l-indigo-500/70 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-indigo-500/[0.06] transition-all duration-300"
                 >
                   <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/20 group-hover:from-indigo-500/30 group-hover:to-violet-500/30 transition-all">
                     <Icon size={20} strokeWidth={1.8} className="text-indigo-400 group-hover:text-violet-300 transition-colors" aria-hidden="true" />

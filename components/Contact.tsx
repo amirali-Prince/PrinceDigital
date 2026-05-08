@@ -68,7 +68,7 @@ export default function Contact() {
             <motion.span
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
-              className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
+              className="sig-badge"
             >
               {t.contact.badge}
             </motion.span>
@@ -76,15 +76,22 @@ export default function Contact() {
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-4"
+              className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-4 mb-0"
             >
               {t.contact.h2}
             </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ delay: 0.18, duration: 0.4 }}
+              style={{ transformOrigin: 'left' }}
+              className="sig-line"
+            />
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.18 }}
-              className="text-white/50 leading-relaxed mb-8 max-w-md"
+              transition={{ delay: 0.24 }}
+              className="text-white/60 leading-relaxed mb-8 max-w-md"
             >
               {t.contact.sub}
             </motion.p>

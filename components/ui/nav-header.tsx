@@ -33,7 +33,7 @@ function NavHeader({ tabs }: { tabs: TabItem[] }) {
 
   return (
     <ul
-      className="relative flex w-fit rounded-full bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12] shadow-2xl shadow-black/60 p-1"
+      className="relative flex w-fit h-12 items-center rounded-full bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12] shadow-2xl shadow-black/60 p-1"
       onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
     >
       {tabs.map((tab) => (
@@ -61,11 +61,11 @@ const Tab = ({ children, href, setPosition }: TabProps) => {
           left: ref.current.offsetLeft,
         });
       }}
-      className="relative z-10 block cursor-pointer"
+      className="relative z-10 h-full flex items-center cursor-pointer"
     >
       <a
         href={href}
-        className="block px-3 py-2 text-[13px] font-medium text-white/65 hover:text-white transition-colors whitespace-nowrap"
+        className="h-full flex items-center px-3 text-[13px] font-medium text-white/65 hover:text-white transition-colors whitespace-nowrap"
       >
         {children}
       </a>

@@ -21,6 +21,39 @@ html {
     text-wrap: balance;
   }
 
+  /* ── Signature Identity ───────────────────────────────────────── */
+
+  /* Eyebrow badge used before every section heading */
+  .sig-badge {
+    @apply inline-flex items-center gap-1.5
+           border border-indigo-500/25 bg-indigo-500/[0.08]
+           text-indigo-300 px-3.5 py-1 rounded-full
+           text-[11px] font-bold uppercase tracking-widest
+           backdrop-blur-sm;
+  }
+
+  /* 2px gradient line placed after a section heading */
+  .sig-line {
+    @apply block h-[2px] w-10 rounded-full
+           bg-gradient-to-r from-indigo-500 to-violet-500
+           opacity-75 mt-3 mb-5;
+  }
+
+  /* Glass card — base */
+  .sig-card {
+    @apply bg-white/[0.04] backdrop-blur-sm
+           border border-white/[0.08] rounded-2xl
+           transition-all duration-300
+           hover:bg-white/[0.06] hover:border-indigo-500/30
+           hover:shadow-lg;
+  }
+
+  /* Glass card with left signature accent on hover */
+  .sig-card-accent {
+    @apply sig-card border-l-indigo-500/50;
+  }
+
+  /* Gradient text shorthand */
   .gradient-text {
     @apply bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent;
   }

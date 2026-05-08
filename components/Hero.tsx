@@ -12,28 +12,30 @@ export default function Hero() {
     <section aria-label="Hero" className="relative overflow-hidden">
       <BackgroundGradientAnimation
         gradientBackgroundStart="#09090f"
-        gradientBackgroundEnd="#0d0919"
-        firstColor="99, 102, 241"
-        secondColor="139, 92, 246"
-        thirdColor="79, 70, 229"
-        fourthColor="109, 40, 217"
-        fifthColor="167, 139, 250"
-        pointerColor="129, 140, 248"
-        blendingValue="hard-light"
-        size="60%"
+        gradientBackgroundEnd="#0c0915"
+        firstColor="79, 82, 200"
+        secondColor="110, 65, 210"
+        thirdColor="58, 50, 180"
+        fourthColor="85, 25, 170"
+        fifthColor="130, 105, 210"
+        pointerColor="100, 110, 200"
+        blendingValue="soft-light"
+        size="45%"
         containerClassName="min-h-[100dvh]"
         interactive
       />
+      {/* Veil to keep headline readable */}
+      <div className="absolute inset-0 z-[1] bg-[#09090f]/55 pointer-events-none" />
 
       {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center pt-14 md:pt-0">
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-4 text-center pt-14 md:pt-0">
 
         {/* Eyebrow badge */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2.5 border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 px-4 py-1.5 rounded-full text-sm font-medium mb-8 backdrop-blur-sm"
+          className="sig-badge mb-8"
         >
           <Sparkles size={13} className="text-indigo-400" aria-hidden="true" />
           {t.hero.badge}
@@ -58,7 +60,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="max-w-2xl text-lg sm:text-xl text-white/55 leading-relaxed mb-10"
+          className="max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed mb-10"
         >
           {t.hero.sub}
         </motion.p>
@@ -119,7 +121,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3 }}
         aria-label="Weiter scrollen"
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 text-white/25 hover:text-indigo-400 transition-colors"
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 z-20 text-white/25 hover:text-indigo-400 transition-colors"
       >
         <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 1.7, repeat: Infinity }}>
           <ChevronDown size={26} />

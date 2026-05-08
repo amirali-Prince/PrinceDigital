@@ -109,7 +109,7 @@ export default function Services() {
           <motion.span
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            className="inline-block bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent font-semibold text-xs uppercase tracking-widest"
+            className="sig-badge"
           >
             {t.services.badge}
           </motion.span>
@@ -117,15 +117,21 @@ export default function Services() {
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-2 mb-3"
+            className="text-3xl sm:text-5xl font-bold text-white tracking-tight mt-4 mb-0"
           >
             {t.services.h2}
           </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+            transition={{ delay: 0.18, duration: 0.4 }}
+            className="sig-line mx-auto"
+          />
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.18 }}
-            className="max-w-xl mx-auto text-base sm:text-lg text-white/50"
+            transition={{ delay: 0.24 }}
+            className="max-w-xl mx-auto text-base sm:text-lg text-white/55"
           >
             {t.services.sub}
           </motion.p>
@@ -141,10 +147,10 @@ export default function Services() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.08 + i * 0.1 }}
-                className={`relative group flex flex-col rounded-2xl p-7 border transition-all duration-300 hover:-translate-y-1 ${
+                className={`relative group flex flex-col rounded-2xl p-7 border-[1.5px] transition-all duration-300 hover:-translate-y-1 ${
                   s.featured
-                    ? `bg-gradient-to-br ${s.accent} bg-opacity-10 border-indigo-500/40 shadow-xl ${s.glow}`
-                    : 'bg-white/[0.04] border-white/[0.08] hover:border-indigo-500/30 hover:bg-white/[0.06] hover:shadow-lg'
+                    ? `bg-gradient-to-br ${s.accent} bg-opacity-10 border-indigo-500/50 shadow-xl ${s.glow}`
+                    : 'bg-white/[0.04] border-white/[0.07] border-l-indigo-500/40 hover:border-indigo-500/35 hover:border-l-indigo-500/70 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-indigo-500/[0.06]'
                 }`}
               >
                 {s.featured && (
