@@ -2,8 +2,11 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Clock, ArrowRight, ExternalLink } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
 import { useT, useLang } from '@/lib/i18n'
+
+const SLUGS = ['healthcore-clinic', 'greenbuild-gmbh', 'luxeroom-hotels', 'techstart-saas']
 
 const DE_PROJECTS = [
   {
@@ -122,53 +125,52 @@ export default function Portfolio() {
         {/* Project grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
           {projects.map((p, i) => (
-            <motion.article
+            <motion.div
               key={p.title}
               initial={{ opacity: 0, y: 36 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 + i * 0.09 }}
-              className={`group bg-white/[0.04] rounded-2xl overflow-hidden border border-white/[0.08] hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${p.glowColor}`}
             >
-              {/* Image area — gradient placeholder with hover reveal */}
-              <div className={`relative h-52 bg-gradient-to-br ${p.gradient} overflow-hidden`}>
-                {/* Noise texture overlay */}
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.4%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay" />
+              <Link
+                href={`/portfolio/${SLUGS[i]}`}
+                className={`group block bg-white/[0.04] rounded-2xl overflow-hidden border border-white/[0.08] hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${p.glowColor}`}
+              >
+                {/* Image area */}
+                <div className={`relative h-52 bg-gradient-to-br ${p.gradient} overflow-hidden`}>
+                  {/* Noise texture overlay */}
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.4%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay" />
 
-                {/* Shimmer on hover */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                  {/* Shimmer on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
 
-                {/* Soon badge */}
-                <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 bg-black/30 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-white/20">
-                  <Clock size={11} aria-hidden="true" /> {t.portfolio.soon}
-                </div>
+                  {/* Arrow icon on hover */}
+                  <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
+                      <ArrowUpRight size={14} className="text-white" aria-hidden="true" />
+                    </div>
+                  </div>
 
-                {/* External link on hover */}
-                <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
-                    <ExternalLink size={14} className="text-white" aria-hidden="true" />
+                  {/* Title bar */}
+                  <div className="absolute bottom-0 inset-x-0 px-5 py-4 bg-gradient-to-t from-black/50 to-transparent">
+                    <h3 className="text-white font-bold text-lg leading-tight">{p.title}</h3>
                   </div>
                 </div>
 
-                {/* Title bar */}
-                <div className="absolute bottom-0 inset-x-0 px-5 py-4 bg-gradient-to-t from-black/50 to-transparent">
-                  <h3 className="text-white font-bold text-lg leading-tight">{p.title}</h3>
+                <div className="p-5">
+                  <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent text-[11px] font-bold uppercase tracking-widest">
+                    {p.category}
+                  </span>
+                  <p className="text-white/50 text-sm leading-relaxed mt-1.5 mb-3">{p.description}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.tags.map((tag) => (
+                      <span key={tag} className="bg-white/[0.06] border border-white/[0.10] text-white/60 text-xs font-medium px-2.5 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <div className="p-5">
-                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent text-[11px] font-bold uppercase tracking-widest">
-                  {p.category}
-                </span>
-                <p className="text-white/50 text-sm leading-relaxed mt-1.5 mb-3">{p.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="bg-white/[0.06] border border-white/[0.10] text-white/60 text-xs font-medium px-2.5 py-1 rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
+              </Link>
+            </motion.div>
           ))}
         </div>
 

@@ -123,12 +123,17 @@ export default function Contact() {
                 <span className="text-sm">076 433 69 69</span>
               </a>
 
-              <div className="flex items-center gap-3.5 text-white/40">
-                <div className="w-10 h-10 bg-white/[0.04] border border-white/[0.08] rounded-xl flex items-center justify-center flex-shrink-0">
-                  <MapPin size={17} className="text-white/40" aria-hidden="true" />
+              <a
+                href="https://maps.google.com/?q=Zürich,+Schweiz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3.5 text-white/60 hover:text-white transition-colors group"
+              >
+                <div className="w-10 h-10 bg-purple-500/10 border border-purple-500/20 rounded-xl flex items-center justify-center group-hover:bg-purple-500/20 transition-colors flex-shrink-0">
+                  <MapPin size={17} className="text-purple-400" aria-hidden="true" />
                 </div>
                 <span className="text-sm">Zürich, Schweiz</span>
-              </div>
+              </a>
             </motion.div>
 
             {/* Availability indicator */}
