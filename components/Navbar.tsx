@@ -5,16 +5,13 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { useLang, useT } from '@/lib/i18n'
-import { NavHeader, type TabItem } from '@/components/ui/nav-header'
-
-const pill = 'bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12] shadow-2xl shadow-black/60'
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { lang, setLang } = useLang()
   const t = useT()
 
-  const tabs: TabItem[] = [
+  const tabs = [
     { label: t.nav.services,  href: '#leistungen' },
     { label: t.nav.about,     href: '#ueber-uns'  },
     { label: t.nav.portfolio, href: '#portfolio'  },
@@ -24,71 +21,93 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Floating pill navbar — all screen sizes ───────────────── */}
-      <motion.nav
+      {/* ────────────────────────────────────────────────────────────
+          One unified floating pill — centered on all screen sizes.
+          left-0 right-0 mx-auto w-fit is the most reliable centering
+          approach for fixed elements across all viewports.
+      ──────────────────────────────────────────────────────────── */}
+      <motion.div
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', damping: 22, stiffness: 200, delay: 0.1 }}
-        aria-label="Hauptnavigation"
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2"
+        className="fixed top-4 left-0 right-0 mx-auto z-50 w-fit"
       >
-        {/* Logo pill — logo only, no company name */}
-        <a
-          href="#"
-          aria-label="Prince Digital — Startseite"
-          className={`flex items-center justify-center w-12 h-12 rounded-full ${pill} hover:bg-white/[0.09] transition-colors flex-shrink-0`}
+        {/* Signature gradient border shell */}
+        <div
+          className="rounded-full p-px shadow-[0_8px_40px_rgba(0,0,0,0.65),0_0_0_1px_rgba(99,102,241,0.12)]"
+          style={{
+            background: 'linear-gradient(135deg, rgba(99,102,241,0.55) 0%, rgba(139,92,246,0.25) 50%, rgba(99,102,241,0.55) 100%)',
+          }}
         >
-          <Image
-            src="/logo.png"
-            alt="Prince Digital"
-            width={30}
-            height={30}
-            className="h-[30px] w-[30px] object-contain"
-            priority
-          />
-        </a>
+          {/* Inner pill */}
+          <div className="flex items-center h-12 rounded-full bg-[#0d0a1d]/92 backdrop-blur-2xl px-2 gap-0.5">
 
-        {/* Sliding-cursor nav — tablet and desktop */}
-        <div className="hidden sm:flex items-center h-12">
-          <NavHeader tabs={tabs} />
-        </div>
+            {/* Logo */}
+            <a
+              href="#"
+              aria-label="Prince Digital — Startseite"
+              className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-white/[0.07] transition-colors flex-shrink-0"
+            >
+              <Image
+                src="/logo.png"
+                alt="Prince Digital"
+                width={28}
+                height={28}
+                className="h-7 w-7 object-contain"
+                priority
+              />
+            </a>
 
-        {/* Language + CTA — tablet and desktop */}
-        <div className="hidden sm:flex items-center gap-2 h-12">
-          <button
-            onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-            aria-label="Sprache wechseln"
-            className={`h-full px-3.5 text-[11px] font-bold text-white/45 hover:text-white/80 transition-colors rounded-full ${pill} hover:bg-white/[0.09]`}
-          >
-            {lang === 'de' ? 'EN' : 'DE'}
-          </button>
-          <a
-            href="#kontakt"
-            className="h-full flex items-center bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white text-[13px] font-semibold px-5 rounded-full transition-all duration-200 whitespace-nowrap shadow-lg shadow-indigo-500/30 hover:-translate-y-px"
-          >
-            {t.nav.cta}
-          </a>
-        </div>
+            {/* Divider */}
+            <span className="w-px h-5 bg-white/[0.14] mx-1.5 flex-shrink-0" aria-hidden="true" />
 
-        {/* Language + hamburger — mobile only */}
-        <div className="flex sm:hidden items-center gap-2 h-12">
-          <button
-            onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-            aria-label="Sprache wechseln"
-            className={`h-full px-3 text-[11px] font-bold text-white/45 hover:text-white/80 transition-colors rounded-full ${pill}`}
-          >
-            {lang === 'de' ? 'EN' : 'DE'}
-          </button>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className={`h-full px-3 flex items-center rounded-full ${pill} text-white/70 hover:text-white transition-colors`}
-            aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+            {/* Nav links — tablet and desktop */}
+            <nav className="hidden sm:flex items-center gap-0.5" aria-label="Hauptnavigation">
+              {tabs.map((tab) => (
+                <a
+                  key={tab.href}
+                  href={tab.href}
+                  className="px-3 h-8 inline-flex items-center text-[13px] font-medium text-white/58 hover:text-white hover:bg-white/[0.07] rounded-full transition-all duration-150 whitespace-nowrap"
+                >
+                  {tab.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Divider — tablet and desktop */}
+            <span className="hidden sm:block w-px h-5 bg-white/[0.14] mx-1.5 flex-shrink-0" aria-hidden="true" />
+
+            {/* Language toggle */}
+            <button
+              onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
+              aria-label="Sprache wechseln"
+              className="h-8 px-3 text-[11px] font-bold tracking-wide text-white/42 hover:text-white/85 hover:bg-white/[0.07] rounded-full transition-all flex-shrink-0"
+            >
+              {lang === 'de' ? 'EN' : 'DE'}
+            </button>
+
+            {/* CTA — always visible, abbreviated on mobile */}
+            <a
+              href="#kontakt"
+              className="ml-1 h-8 inline-flex items-center bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white text-[12px] font-semibold px-4 rounded-full transition-all duration-200 whitespace-nowrap shadow-md shadow-indigo-500/25 hover:-translate-y-px flex-shrink-0"
+            >
+              <span className="hidden sm:inline">{t.nav.cta}</span>
+              <span className="sm:hidden">Start</span>
+            </a>
+
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="sm:hidden ml-1 h-8 w-8 inline-flex items-center justify-center rounded-full hover:bg-white/[0.07] text-white/65 hover:text-white transition-all flex-shrink-0"
+              aria-label={mobileOpen ? 'Menü schließen' : 'Menü öffnen'}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? <X size={17} /> : <Menu size={17} />}
+            </button>
+
+          </div>
         </div>
-      </motion.nav>
+      </motion.div>
 
       {/* ── Mobile fullscreen menu ────────────────────────────────── */}
       <AnimatePresence>
