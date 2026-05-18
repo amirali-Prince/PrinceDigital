@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Zap, Shield, HeartHandshake, ArrowRight } from 'lucide-react'
+import { Zap, Shield, MessageSquare, ArrowRight } from 'lucide-react'
 import { useT } from '@/lib/i18n'
 
 export default function About() {
@@ -11,9 +11,9 @@ export default function About() {
   const t = useT()
 
   const usps = [
-    { icon: Zap,            title: t.about.usp1t, description: t.about.usp1d },
-    { icon: Shield,         title: t.about.usp2t, description: t.about.usp2d },
-    { icon: HeartHandshake, title: t.about.usp3t, description: t.about.usp3d },
+    { icon: Zap,           title: t.about.usp1t, description: t.about.usp1d },
+    { icon: Shield,        title: t.about.usp2t, description: t.about.usp2d },
+    { icon: MessageSquare, title: t.about.usp3t, description: t.about.usp3d },
   ]
 
   return (
@@ -55,7 +55,7 @@ export default function About() {
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.22 }}
-              className="space-y-3 text-white/60 leading-relaxed"
+              className="space-y-4 text-white/60 leading-relaxed text-[15px]"
             >
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
@@ -76,14 +76,14 @@ export default function About() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.38 }}
-              className="flex items-center gap-3 mt-8 p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08]"
+              className="flex items-center gap-3 mt-6 p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08]"
             >
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-lg shadow-indigo-500/30">
                 AA
               </div>
               <div>
                 <div className="text-white font-semibold text-sm">Amir Ali Alizadeh</div>
-                <div className="text-white/45 text-xs">Founder & Digital Strategist — Prince Digital, Zürich</div>
+                <div className="text-white/45 text-xs">Founder — Prince Digital, Zürich</div>
               </div>
             </motion.div>
           </div>
