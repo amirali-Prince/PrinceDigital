@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   keywords: ['Webdesign Zürich', 'Digital Marketing Schweiz', 'SEO', 'Branding', 'Social Media', 'Prince Digital'],
   authors: [{ name: 'Amir Ali Alizadeh — Prince Digital' }],
   metadataBase: new URL('https://prince-digitals.ch'),
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+    shortcut: '/logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'de_CH',
