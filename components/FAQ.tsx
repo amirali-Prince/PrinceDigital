@@ -8,86 +8,86 @@ import { useT, useLang } from '@/lib/i18n'
 const DE_FAQS = [
   {
     q: 'Was kostet eine Website bei Prince Digital?',
-    a: 'Jedes Projekt ist anders. Eine einfache Business-Website startet ab CHF 2\'500, komplexere Projekte mit Shop oder individuellen Funktionen kosten entsprechend mehr. Nach einem kurzen Erstgespräch erhalten Sie ein fixes Angebot — ohne versteckte Kosten.',
+    a: 'Jedes Projekt ist anders. Eine Business-Website startet ab CHF 2\'500, ein Online Shop oder eine Web App kostet entsprechend mehr. Nach dem Erstgespräch bekommst du ein konkretes Angebot mit Fixpreis — alles drin, nichts offen.',
   },
   {
     q: 'Wie lange dauert die Umsetzung?',
-    a: 'Für eine Standard-Business-Website rechnen wir mit 3–5 Wochen. Grössere Projekte können 6–10 Wochen dauern. Wir kommunizieren klare Meilensteine und halten uns daran.',
+    a: 'Für eine Standard-Website rechnen wir mit 3 Wochen. Grössere Projekte wie Shops oder Web Apps 6–8 Wochen. Du bekommst klare Meilensteine und siehst jederzeit wo wir stehen.',
   },
   {
     q: 'Brauche ich technisches Wissen?',
-    a: 'Nein. Wir erklären alles auf Deutsch, ohne Fachjargon. Nach dem Launch zeigen wir Ihnen, wie Sie Inhalte selbst anpassen können — wenn Sie das wollen. Wenn nicht, übernehmen wir das.',
+    a: 'Überhaupt nicht. Wir erklären alles in normaler Sprache. Nach dem Launch zeigen wir dir wie du Inhalte selbst anpassen kannst — oder wir machen es für dich, wenn du das bevorzugst.',
   },
   {
     q: 'Was passiert nach dem Launch?',
-    a: 'Wir lassen Sie nicht allein. Wir bieten optionale Wartungspakete an, sind für Fragen erreichbar und begleiten Sie beim weiteren Wachstum — ob mit SEO, Ads oder Website-Updates.',
+    a: 'Du bist nicht auf dich allein gestellt. Für Anpassungen und Fragen bin ich direkt erreichbar. Auf Wunsch gibt es auch ein Wartungspaket mit regelmässigen Updates und laufendem Support.',
   },
   {
-    q: 'Arbeiten Sie nur mit Unternehmen aus Zürich?',
-    a: 'Nein. Unsere Kunden kommen aus der ganzen Deutschschweiz. Da das meiste digital läuft, ist der Standort nebensächlich — obwohl wir ein persönliches Gespräch immer bevorzugen.',
+    q: 'Arbeitet ihr nur mit Unternehmen aus Zürich?',
+    a: 'Nein. Wir arbeiten mit Kunden aus der ganzen Deutschschweiz. Da das meiste digital läuft, spielt der Standort kaum eine Rolle. Persönliche Treffen in Zürich sind aber jederzeit möglich.',
   },
   {
     q: 'Wie läuft das Erstgespräch ab?',
-    a: 'Ganz entspannt. Wir besprechen Ihr Projekt, Ihre Ziele und Ihren Zeitrahmen. Keine Präsentation, kein Pitching — nur ein ehrliches Gespräch. Im Anschluss erhalten Sie ein konkretes Angebot.',
+    a: 'Entspannt und unkompliziert. Wir reden über dein Projekt, was du brauchst und bis wann. Am Ende bekommst du ein konkretes Angebot — kostenlos und unverbindlich.',
   },
   {
     q: 'Bietet Prince Digital auch Social Media Betreuung an?',
-    a: 'Ja. Wir übernehmen das vollständige Social Media Management — von der Content-Strategie über die Gestaltung bis zur Planung und Schaltung bezahlter Anzeigen auf Instagram, Facebook und LinkedIn.',
+    a: 'Ja. Wir übernehmen Content-Erstellung, Planung und bezahlte Anzeigen auf Instagram, TikTok, Facebook und LinkedIn — entweder komplett oder genau das, was du brauchst.',
   },
   {
     q: 'Kann ich auch nur ein Logo oder Branding beauftragen?',
-    a: 'Absolut. Sie können einzelne Leistungen auch separat beauftragen. Ob Logo, Corporate Identity oder komplettes Branding — wir passen das Paket an Ihre Bedürfnisse an.',
+    a: 'Ja. Du kannst jede Leistung einzeln buchen — Logo, Corporate Identity, Visitenkarten, Flyer. Sag uns was du brauchst und wir machen ein Angebot darauf.',
   },
   {
     q: 'Wie funktioniert die Zusammenarbeit?',
-    a: 'Nach dem Erstgespräch erhalten Sie ein Angebot. Bei Zusage starten wir mit einem Kickoff, bei dem wir alle Details festlegen. Danach arbeiten wir in klaren Phasen — Sie werden regelmässig über den Fortschritt informiert und haben immer das letzte Wort.',
+    a: 'Erstgespräch, Angebot, Kickoff — dann arbeiten wir in klaren Phasen. Du siehst den Fortschritt regelmässig und kannst jederzeit Feedback geben. Das letzte Wort hast du immer.',
   },
   {
     q: 'Gibt es eine Garantie auf die Website?',
-    a: 'Ja. Wir liefern keine halbfertigen Websites. Wenn nach dem Launch etwas nicht wie vereinbart funktioniert, beheben wir es kostenlos. Darüber hinaus bieten wir optionale Wartungsverträge für laufenden Support an.',
+    a: 'Ja. Wenn nach dem Launch etwas nicht so funktioniert wie besprochen, fixen wir es ohne Extrakosten. Wir liefern fertige, funktionierende Arbeit — das ist unser Anspruch.',
   },
 ]
 
 const EN_FAQS = [
   {
     q: 'How much does a website cost at Prince Digital?',
-    a: 'Every project is different. A simple business website starts from CHF 2,500; more complex projects with a shop or custom functions cost accordingly more. After a short initial consultation you receive a fixed quote — no hidden costs.',
+    a: 'Every project is different. A business website starts from CHF 2,500; an online shop or web app costs accordingly more. After the first call you\'ll get a concrete fixed-price quote — everything included, nothing open-ended.',
   },
   {
-    q: 'How long does the implementation take?',
-    a: 'For a standard business website we estimate 3–5 weeks. Larger projects can take 6–10 weeks. We communicate clear milestones and stick to them.',
+    q: 'How long does implementation take?',
+    a: 'For a standard website, plan for 3 weeks. Larger projects like shops or web apps take 6–8 weeks. You get clear milestones and always know where things stand.',
   },
   {
     q: 'Do I need technical knowledge?',
-    a: 'No. We explain everything in plain language, without jargon. After launch we show you how to update content yourself — if you want to. If not, we handle it.',
+    a: 'Not at all. We explain everything in plain language. After launch we show you how to update content yourself — or we handle it for you if you prefer.',
   },
   {
     q: 'What happens after launch?',
-    a: 'We don\'t leave you alone. We offer optional maintenance packages, are reachable for questions, and support your continued growth — whether with SEO, ads, or website updates.',
+    a: 'You\'re not left on your own. For adjustments and questions I\'m directly reachable. We also offer maintenance packages with regular updates and ongoing support.',
   },
   {
     q: 'Do you only work with companies from Zurich?',
-    a: 'No. Our clients come from all of German-speaking Switzerland. Since most work is done digitally, location is secondary — though we always prefer a personal conversation.',
+    a: 'No. We work with clients from all of German-speaking Switzerland. Since most work is done digitally, location doesn\'t really matter. In-person meetings in Zurich are always possible though.',
   },
   {
     q: 'How does the initial consultation work?',
-    a: 'Very relaxed. We discuss your project, goals, and timeline. No presentation, no pitching — just an honest conversation. Afterwards you receive a concrete offer.',
+    a: 'Relaxed and straightforward. We talk about your project, what you need and by when. At the end you\'ll get a concrete offer — free and without obligation.',
   },
   {
     q: 'Does Prince Digital also offer social media management?',
-    a: 'Yes. We handle complete social media management — from content strategy to design, scheduling, and running paid ads on Instagram, Facebook, and LinkedIn.',
+    a: 'Yes. We handle content creation, scheduling and paid ads on Instagram, TikTok, Facebook and LinkedIn — either fully managed or just what you specifically need.',
   },
   {
     q: 'Can I commission just a logo or branding?',
-    a: 'Absolutely. You can also commission individual services separately. Whether logo, corporate identity, or complete branding — we adapt the package to your needs.',
+    a: 'Yes. You can book any service separately — logo, corporate identity, business cards, flyers. Tell us what you need and we\'ll put together a quote.',
   },
   {
     q: 'How does the collaboration work?',
-    a: 'After the initial consultation you receive a quote. Once agreed, we start with a kickoff where we lock in all details. From there we work in clear phases — you are regularly updated on progress and always have the final say.',
+    a: 'First call, quote, kickoff — then we work in clear phases. You see progress regularly and can give feedback at any time. You always have the final say.',
   },
   {
     q: 'Is there a guarantee on the website?',
-    a: 'Yes. We do not deliver half-finished websites. If something doesn\'t work as agreed after launch, we fix it at no extra cost. Beyond that we offer optional maintenance contracts for ongoing support.',
+    a: 'Yes. If something doesn\'t work as agreed after launch, we fix it at no extra cost. We deliver finished, working websites — that\'s our standard.',
   },
 ]
 
