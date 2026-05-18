@@ -27,8 +27,8 @@ export const T = {
     },
     services: {
       badge: 'Leistungen',
-      h2: 'Fünf Disziplinen. Ein Ziel: Ihr Wachstum.',
-      sub: 'Von der ersten Idee bis zur fertigen digitalen Präsenz — alles aus einer Hand.',
+      h2: 'Was wir für dich machen.',
+      sub: 'Deine Website, dein Social Media, dein Branding — wir kümmern uns darum.',
       more: 'Mehr erfahren',
       popular: 'Beliebt',
     },
@@ -48,15 +48,10 @@ export const T = {
     },
     portfolio: {
       badge: 'Portfolio',
-      h2: 'Projekte, die etwas bewegt haben.',
-      sub: 'Reale Resultate für reale Unternehmen — demnächst mit Screenshots und Zahlen.',
+      h2: 'Projekte, die zeigen was möglich ist.',
+      sub: 'Konzeptprojekte — so sehen Websites aus, die wir für dich bauen würden.',
       soon: 'In Kürze',
-      cta: 'Ihr Projekt könnte hier stehen',
-    },
-    testimonials: {
-      badge: 'Kundenstimmen',
-      h2: 'Was unsere Kunden sagen.',
-      sub: 'Keine inszenierten Bewertungen. Echte Worte von echten Unternehmen.',
+      cta: 'Dein Projekt könnte hier stehen',
     },
     faq: {
       badge: 'FAQ',
@@ -124,8 +119,8 @@ export const T = {
     },
     services: {
       badge: 'Services',
-      h2: 'Five Disciplines. One Goal: Your Growth.',
-      sub: 'From the first idea to the finished digital presence — everything from one source.',
+      h2: 'What we do for you.',
+      sub: 'Your website, your social media, your branding — we take care of it.',
       more: 'Learn more',
       popular: 'Popular',
     },
@@ -145,15 +140,10 @@ export const T = {
     },
     portfolio: {
       badge: 'Portfolio',
-      h2: 'Projects that made a difference.',
-      sub: 'Real results for real businesses — coming soon with screenshots and numbers.',
+      h2: 'Projects that show what\'s possible.',
+      sub: 'Concept projects — this is what websites we build for you look like.',
       soon: 'Coming Soon',
       cta: 'Your project could be here',
-    },
-    testimonials: {
-      badge: 'Testimonials',
-      h2: 'What our clients say.',
-      sub: 'No staged reviews. Real words from real businesses.',
     },
     faq: {
       badge: 'FAQ',

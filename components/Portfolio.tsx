@@ -6,75 +6,59 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { useT, useLang } from '@/lib/i18n'
 
-const SLUGS = ['healthcore-clinic', 'greenbuild-gmbh', 'luxeroom-hotels', 'techstart-saas']
+const SLUGS = ['streetwear-brand-shop', 'beratungsfirma-zuerich', 'taxi-buchungsplattform']
 
 const DE_PROJECTS = [
   {
-    title: 'HealthCore Clinic',
-    category: 'Webdesign & Entwicklung',
-    description: 'Neue Website mit Online-Terminbuchung und Patientenportal. Ladezeit unter 1 Sekunde, DSGVO-konform.',
-    tags: ['Next.js', 'Tailwind', 'Figma'],
+    title: 'Streetwear Brand Shop',
+    category: 'Online Shop',
+    description: 'Kompletter Online-Shop für eine Modemarke. Produkte, Warenkorb, Checkout — alles drin. Sieht aus wie die Grossen, kostet nicht wie die Grossen.',
+    tags: ['Online Shop', 'Zahlungssystem', 'Mobile-first'],
     gradient: 'from-indigo-600 via-violet-600 to-purple-700',
     glowColor: 'shadow-indigo-500/25',
   },
   {
-    title: 'GreenBuild GmbH',
-    category: 'SEO & Marketing',
-    description: 'SEO & Google Ads — dreimal mehr qualifizierte Anfragen innerhalb von 60 Tagen nach Launch.',
-    tags: ['SEO', 'Google Ads', 'Analytics'],
+    title: 'Beratungsfirma Zürich',
+    category: 'Business Website',
+    description: 'Professioneller Webauftritt für eine Unternehmensberatung. Klar, seriös, überzeugend — damit Kunden sofort wissen: hier bin ich richtig.',
+    tags: ['Business Website', 'SEO', 'Kontaktformular'],
     gradient: 'from-violet-600 via-purple-600 to-indigo-700',
     glowColor: 'shadow-violet-500/25',
   },
   {
-    title: 'LuxeRoom Hotels',
-    category: 'Webdesign & Branding',
-    description: 'Premium-Webauftritt mit integriertem Buchungssystem und komplett überarbeitetem Markenauftritt.',
-    tags: ['Branding', 'React', 'UX'],
+    title: 'Taxi Buchungsplattform',
+    category: 'Web App',
+    description: 'Komplette Buchungs-App für einen Fahrdienst. Kunden buchen live, Fahrer sehen alles in Echtzeit, Zahlung läuft automatisch.',
+    tags: ['Web App', 'Live-Buchung', 'Zahlungsintegration'],
     gradient: 'from-purple-600 via-indigo-600 to-blue-700',
     glowColor: 'shadow-purple-500/25',
-  },
-  {
-    title: 'TechStart SaaS',
-    category: 'Strategie & Entwicklung',
-    description: 'Konversionsstark konzipierte Landingpage — von null auf 500 Signups im ersten Monat.',
-    tags: ['SaaS', 'Conversion', 'UX'],
-    gradient: 'from-blue-600 via-indigo-600 to-violet-700',
-    glowColor: 'shadow-blue-500/25',
   },
 ]
 
 const EN_PROJECTS = [
   {
-    title: 'HealthCore Clinic',
-    category: 'Web Design & Development',
-    description: 'New website with online appointment booking and patient portal. Load time under 1 second, GDPR-compliant.',
-    tags: ['Next.js', 'Tailwind', 'Figma'],
+    title: 'Streetwear Brand Shop',
+    category: 'Online Shop',
+    description: 'Complete online shop for a fashion brand. Products, cart, checkout — everything included. Looks like the big players, doesn\'t cost like them.',
+    tags: ['Online Shop', 'Payment System', 'Mobile-first'],
     gradient: 'from-indigo-600 via-violet-600 to-purple-700',
     glowColor: 'shadow-indigo-500/25',
   },
   {
-    title: 'GreenBuild GmbH',
-    category: 'SEO & Marketing',
-    description: 'SEO & Google Ads — three times more qualified leads within 60 days of launch.',
-    tags: ['SEO', 'Google Ads', 'Analytics'],
+    title: 'Consulting Firm Zurich',
+    category: 'Business Website',
+    description: 'Professional web presence for a consulting firm. Clear, serious, convincing — so clients instantly know: this is the right place.',
+    tags: ['Business Website', 'SEO', 'Contact Form'],
     gradient: 'from-violet-600 via-purple-600 to-indigo-700',
     glowColor: 'shadow-violet-500/25',
   },
   {
-    title: 'LuxeRoom Hotels',
-    category: 'Web Design & Branding',
-    description: 'Premium web presence with integrated booking system and completely redesigned brand identity.',
-    tags: ['Branding', 'React', 'UX'],
+    title: 'Taxi Booking Platform',
+    category: 'Web App',
+    description: 'Complete booking app for a transport service. Customers book live, drivers see everything in real time, payment runs automatically.',
+    tags: ['Web App', 'Live Booking', 'Payment Integration'],
     gradient: 'from-purple-600 via-indigo-600 to-blue-700',
     glowColor: 'shadow-purple-500/25',
-  },
-  {
-    title: 'TechStart SaaS',
-    category: 'Strategy & Development',
-    description: 'Conversion-optimized landing page — from zero to 500 signups in the first month.',
-    tags: ['SaaS', 'Conversion', 'UX'],
-    gradient: 'from-blue-600 via-indigo-600 to-violet-700',
-    glowColor: 'shadow-blue-500/25',
   },
 ]
 
@@ -84,6 +68,7 @@ export default function Portfolio() {
   const t = useT()
   const { lang } = useLang()
   const projects = lang === 'de' ? DE_PROJECTS : EN_PROJECTS
+  const conceptLabel = lang === 'de' ? 'Konzeptprojekt' : 'Concept Project'
 
   return (
     <section id="portfolio" className="py-20 sm:py-28 bg-[#0d0b1a] px-4 sm:px-6 lg:px-8">
@@ -123,7 +108,7 @@ export default function Portfolio() {
         </div>
 
         {/* Project grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
           {projects.map((p, i) => (
             <motion.div
               key={p.title}
@@ -137,13 +122,18 @@ export default function Portfolio() {
               >
                 {/* Image area */}
                 <div className={`relative h-52 bg-gradient-to-br ${p.gradient} overflow-hidden`}>
-                  {/* Noise texture overlay */}
+                  {/* Noise texture */}
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.4%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay" />
 
                   {/* Shimmer on hover */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
 
-                  {/* Arrow icon on hover */}
+                  {/* Konzeptprojekt badge */}
+                  <div className="absolute top-3.5 left-3.5 bg-black/40 backdrop-blur-sm text-white/80 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20 uppercase tracking-widest">
+                    {conceptLabel}
+                  </div>
+
+                  {/* Arrow on hover */}
                   <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="w-8 h-8 bg-white/15 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
                       <ArrowUpRight size={14} className="text-white" aria-hidden="true" />

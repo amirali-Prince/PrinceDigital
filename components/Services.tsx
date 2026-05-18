@@ -2,94 +2,62 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Globe, Share2, Palette, TrendingUp, Lightbulb, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Globe, Share2, Lightbulb, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useT, useLang } from '@/lib/i18n'
 
 const DE_SERVICES = [
   {
     icon: Globe,
-    title: 'Webdesign & Entwicklung',
-    description: 'Keine Templates. Keine Kompromisse. Wir bauen Websites, die Ihrer Marke gerecht werden — schnell, scharf und darauf ausgelegt, Besucher in zahlende Kunden zu verwandeln.',
-    features: ['Next.js & React', 'Mobile-first Design', 'SEO-optimiert', 'Core Web Vitals 90+'],
+    title: 'Deine Website — fertig in 3 Wochen',
+    description: 'Egal ob du ein Geschäft hast, eine Marke aufbaust oder eine App brauchst — wir bauen dir genau das, was du brauchst. Kein Baukastensystem, keine Vorlage. Deine Website, von Grund auf neu.',
+    features: ['Online Shops', 'Firmenwebsites', 'Buchungs-Apps', 'Alles dazwischen'],
     accent: 'from-indigo-500 to-violet-500',
     glow: 'shadow-indigo-500/20',
-  },
-  {
-    icon: Share2,
-    title: 'Social Media Management',
-    description: 'Konsistente Präsenz auf allen Kanälen — Content der begeistert, Communities die wachsen, Kampagnen die konvertieren. Ihr Auftritt, professionell gemanagt.',
-    features: ['Content Creation', 'Community Management', 'Paid Social Ads', 'Analytics & Reporting'],
-    accent: 'from-violet-500 to-purple-600',
-    glow: 'shadow-violet-500/20',
     featured: true,
   },
   {
-    icon: Palette,
-    title: 'Branding & Logo Design',
-    description: 'Ihre Marke ist mehr als ein Logo. Wir entwickeln eine vollständige visuelle Identität, die sofort erkennbar ist und Vertrauen aufbaut — auf jedem Medium.',
-    features: ['Logo Design (55+ Stile)', 'Corporate Identity', 'Brand Guidelines', 'Print & Digital Assets'],
-    accent: 'from-purple-500 to-indigo-500',
-    glow: 'shadow-purple-500/20',
-  },
-  {
-    icon: TrendingUp,
-    title: 'SEO & Online Marketing',
-    description: 'Sichtbarkeit ohne Substanz bringt nichts. Wir schalten Kampagnen, die kaufbereite Kunden erreichen — gezielt, messbar und mit Respekt für Ihr Budget.',
-    features: ['Technisches SEO', 'Google & Meta Ads', 'Content Marketing', 'KPI Dashboard'],
-    accent: 'from-blue-500 to-indigo-500',
-    glow: 'shadow-blue-500/20',
+    icon: Share2,
+    title: 'Social Media — wir übernehmen das',
+    description: 'Du hast keine Zeit dich um Instagram, TikTok und Co. zu kümmern? Wir machen das. Inhalte erstellen, posten, Kommentare beantworten — dein Auftritt läuft, während du dein Business führst.',
+    features: ['Content erstellen', 'Regelmässig posten', 'Werbeanzeigen schalten', 'Ergebnisse zeigen'],
+    accent: 'from-violet-500 to-purple-600',
+    glow: 'shadow-violet-500/20',
   },
   {
     icon: Lightbulb,
-    title: 'Projektentwicklung & Strategie',
-    description: 'Bevor wir eine Zeile schreiben, denken wir. Wir analysieren Ihren Markt, Ihre Konkurrenz und Chancen — und liefern einen Plan, der hält.',
-    features: ['Digitale Roadmap', 'Marktanalyse', 'UX-Konzept & Wireframes', 'Launch-Strategie'],
-    accent: 'from-indigo-400 to-violet-400',
-    glow: 'shadow-indigo-400/20',
+    title: 'Noch mehr? Kein Problem.',
+    description: 'Visitenkarten, Fahrzeugbeschriftung, Arbeitskleidung, Logo, Flyer — wenn es mit deiner Marke zu tun hat, kümmern wir uns darum. Sag uns einfach was du brauchst.',
+    features: ['Logo & Branding', 'Visitenkarten', 'Fahrzeugbeschriftung', 'Arbeitskleidung & Merchandise'],
+    accent: 'from-purple-500 to-indigo-500',
+    glow: 'shadow-purple-500/20',
   },
 ]
 
 const EN_SERVICES = [
   {
     icon: Globe,
-    title: 'Web Design & Development',
-    description: 'No templates. No compromises. We build websites that do your brand justice — fast, sharp, and designed to convert visitors into paying customers.',
-    features: ['Next.js & React', 'Mobile-first Design', 'SEO Optimized', 'Core Web Vitals 90+'],
+    title: 'Your website — done in 3 weeks',
+    description: 'Whether you have a business, are building a brand, or need an app — we build exactly what you need. No drag-and-drop builder, no template. Your website, built from scratch.',
+    features: ['Online Shops', 'Business Websites', 'Booking Apps', 'Everything in between'],
     accent: 'from-indigo-500 to-violet-500',
     glow: 'shadow-indigo-500/20',
-  },
-  {
-    icon: Share2,
-    title: 'Social Media Management',
-    description: 'Consistent presence across all channels — content that inspires, communities that grow, campaigns that convert. Your presence, professionally managed.',
-    features: ['Content Creation', 'Community Management', 'Paid Social Ads', 'Analytics & Reporting'],
-    accent: 'from-violet-500 to-purple-600',
-    glow: 'shadow-violet-500/20',
     featured: true,
   },
   {
-    icon: Palette,
-    title: 'Branding & Logo Design',
-    description: 'Your brand is more than a logo. We develop a complete visual identity that is instantly recognizable and builds trust — on every medium.',
-    features: ['Logo Design (55+ styles)', 'Corporate Identity', 'Brand Guidelines', 'Print & Digital Assets'],
-    accent: 'from-purple-500 to-indigo-500',
-    glow: 'shadow-purple-500/20',
-  },
-  {
-    icon: TrendingUp,
-    title: 'SEO & Online Marketing',
-    description: 'Visibility without substance means nothing. We run campaigns that reach purchase-ready customers — targeted, measurable, and respectful of your budget.',
-    features: ['Technical SEO', 'Google & Meta Ads', 'Content Marketing', 'KPI Dashboard'],
-    accent: 'from-blue-500 to-indigo-500',
-    glow: 'shadow-blue-500/20',
+    icon: Share2,
+    title: 'Social Media — we handle it',
+    description: 'No time to deal with Instagram, TikTok and the rest? We do it. Create content, post, reply to comments — your presence runs while you run your business.',
+    features: ['Create content', 'Post consistently', 'Run paid ads', 'Show results'],
+    accent: 'from-violet-500 to-purple-600',
+    glow: 'shadow-violet-500/20',
   },
   {
     icon: Lightbulb,
-    title: 'Project Development & Strategy',
-    description: 'Before we write a single line, we think. We analyze your market, your competition, and your opportunities — and deliver a plan that holds.',
-    features: ['Digital Roadmap', 'Market Analysis', 'UX Concept & Wireframes', 'Launch Strategy'],
-    accent: 'from-indigo-400 to-violet-400',
-    glow: 'shadow-indigo-400/20',
+    title: 'Need more? No problem.',
+    description: 'Business cards, vehicle wraps, workwear, logo, flyers — if it has to do with your brand, we handle it. Just tell us what you need.',
+    features: ['Logo & Branding', 'Business Cards', 'Vehicle Wrapping', 'Workwear & Merchandise'],
+    accent: 'from-purple-500 to-indigo-500',
+    glow: 'shadow-purple-500/20',
   },
 ]
 
@@ -138,7 +106,7 @@ export default function Services() {
         </div>
 
         {/* Service cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {services.map((s, i) => {
             const Icon = s.icon
             return (
